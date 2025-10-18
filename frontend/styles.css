@@ -435,7 +435,7 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     border: 1px solid rgba(0, 0, 0, 0.08);
     min-width: 140px;
-    z-index: 1000;
+    z-index: 10001;
     opacity: 0;
     transform: translateY(-8px);
     transition: all 0.25s ease;
