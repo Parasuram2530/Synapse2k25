@@ -5,6 +5,13 @@ const API_BASE_URL = 'http://localhost:5000/api';
 let teacherCourses, courseAssignmentsContainer, gradedAssignmentsContainer, courseGradesContainer;
 let courseMaterialsContainer, courseDiscussionsContainer, notificationBadge;
 
+// Global variables for search functionality
+let allAssignments = [];
+let allGradedAssignments = [];
+let allGrades = [];
+let allMaterials = [];
+let allDiscussions = [];
+
 // Tab management
 function setupTabNavigation() {
     const sidebarLinks = document.querySelectorAll('.sidebar-link[data-tab]');
@@ -438,6 +445,13 @@ function setupTeacherCourseSearch() {
             }
         });
     }
+
+    // Setup search for all tabs
+    setupAssignmentsSearch();
+    setupGradedAssignmentsSearch();
+    setupGradesSearch();
+    setupMaterialsSearch();
+    setupDiscussionsSearch();
 }
 
 // Logout function
@@ -462,11 +476,111 @@ function performTeacherCourseSearch() {
     // Filter courses based on search term
     const filteredCourses = allTeacherCourses.filter(course => {
         return course.title.toLowerCase().includes(searchTerm) ||
-               course.description.toLowerCase().includes(searchTerm) ||
-               course.duration.toLowerCase().includes(searchTerm);
+                course.description.toLowerCase().includes(searchTerm) ||
+                course.duration.toLowerCase().includes(searchTerm);
     });
 
     displayCourses(filteredCourses, teacherCourses, false, true);
+}
+
+// Setup assignments search
+function setupAssignmentsSearch() {
+    const assignmentsSearchBtn = document.getElementById('assignmentsSearchBtn');
+    const assignmentsSearchInput = document.getElementById('assignmentsSearchInput');
+
+    if (assignmentsSearchBtn && assignmentsSearchInput) {
+        assignmentsSearchBtn.addEventListener('click', performAssignmentsSearch);
+        assignmentsSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performAssignmentsSearch();
+            }
+        });
+        assignmentsSearchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() === '') {
+                loadTeacherAssignments();
+            }
+        });
+    }
+}
+
+// Setup graded assignments search
+function setupGradedAssignmentsSearch() {
+    const gradedAssignmentsSearchBtn = document.getElementById('gradedAssignmentsSearchBtn');
+    const gradedAssignmentsSearchInput = document.getElementById('gradedAssignmentsSearchInput');
+
+    if (gradedAssignmentsSearchBtn && gradedAssignmentsSearchInput) {
+        gradedAssignmentsSearchBtn.addEventListener('click', performGradedAssignmentsSearch);
+        gradedAssignmentsSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performGradedAssignmentsSearch();
+            }
+        });
+        gradedAssignmentsSearchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() === '') {
+                loadGradedAssignments();
+            }
+        });
+    }
+}
+
+// Setup grades search
+function setupGradesSearch() {
+    const gradesSearchBtn = document.getElementById('gradesSearchBtn');
+    const gradesSearchInput = document.getElementById('gradesSearchInput');
+
+    if (gradesSearchBtn && gradesSearchInput) {
+        gradesSearchBtn.addEventListener('click', performGradesSearch);
+        gradesSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performGradesSearch();
+            }
+        });
+        gradesSearchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() === '') {
+                loadCourseGrades();
+            }
+        });
+    }
+}
+
+// Setup materials search
+function setupMaterialsSearch() {
+    const materialsSearchBtn = document.getElementById('materialsSearchBtn');
+    const materialsSearchInput = document.getElementById('materialsSearchInput');
+
+    if (materialsSearchBtn && materialsSearchInput) {
+        materialsSearchBtn.addEventListener('click', performMaterialsSearch);
+        materialsSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performMaterialsSearch();
+            }
+        });
+        materialsSearchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() === '') {
+                loadTeacherMaterials();
+            }
+        });
+    }
+}
+
+// Setup discussions search
+function setupDiscussionsSearch() {
+    const discussionsSearchBtn = document.getElementById('discussionsSearchBtn');
+    const discussionsSearchInput = document.getElementById('discussionsSearchInput');
+
+    if (discussionsSearchBtn && discussionsSearchInput) {
+        discussionsSearchBtn.addEventListener('click', performDiscussionsSearch);
+        discussionsSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performDiscussionsSearch();
+            }
+        });
+        discussionsSearchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() === '') {
+                loadTeacherDiscussions();
+            }
+        });
+    }
 }
 
 // Load teacher courses
@@ -495,7 +609,7 @@ async function loadTeacherAssignments() {
         const result = await apiCallWithAuth(`/courses/teacher/${user.id}`);
         if (result.success) {
             const teacherCourses = result.data.courses;
-            const allAssignments = [];
+            allAssignments = [];
 
             for (const course of teacherCourses) {
                 try {
@@ -546,13 +660,13 @@ async function loadGradedAssignments() {
         const result = await apiCallWithAuth(`/courses/teacher/${user.id}`);
         if (result.success) {
             const teacherCourses = result.data.courses;
-            const allAssignments = [];
+            allGradedAssignments = [];
 
             for (const course of teacherCourses) {
                 try {
                     const assignmentResult = await apiCallWithAuth(`/assignments/course/${course._id}`);
                     if (assignmentResult.success) {
-                        allAssignments.push(...assignmentResult.data.assignments);
+                        allGradedAssignments.push(...assignmentResult.data.assignments);
                     }
                 } catch (error) {
                     console.error(`Error loading assignments for course ${course._id}:`, error);
@@ -560,7 +674,7 @@ async function loadGradedAssignments() {
             }
 
             const gradedAssignments = [];
-            for (const assignment of allAssignments) {
+            for (const assignment of allGradedAssignments) {
                 try {
                     const submissionResult = await apiCallWithAuth(`/submissions/assignment/${assignment._id}`);
                     if (submissionResult.success) {
@@ -596,7 +710,7 @@ async function loadCourseGrades() {
         const result = await apiCallWithAuth(`/courses/teacher/${user.id}`);
         if (result.success) {
             const teacherCourses = result.data.courses;
-            const allGrades = [];
+            allGrades = [];
             const allStats = [];
 
             for (const course of teacherCourses) {
@@ -632,7 +746,7 @@ async function loadTeacherMaterials() {
         const result = await apiCallWithAuth(`/courses/teacher/${user.id}`);
         if (result.success) {
             const teacherCourses = result.data.courses;
-            const allMaterials = [];
+            allMaterials = [];
 
             for (const course of teacherCourses) {
                 try {
@@ -663,7 +777,7 @@ async function loadTeacherDiscussions() {
         const result = await apiCallWithAuth(`/courses/teacher/${user.id}`);
         if (result.success) {
             const teacherCourses = result.data.courses;
-            const allDiscussions = [];
+            allDiscussions = [];
 
             for (const course of teacherCourses) {
                 try {
@@ -729,7 +843,7 @@ function displayCourses(courses, container, showEnrollButton = false, showEnroll
             </div>
 
             <div class="course-description-line">
-                <span class="course-description-text">${course.description.length > 100 ? course.description.substring(0, 100) + '...' : course.description}</span>
+                <span class="course-description-text">${course.description}</span>
             </div>
 
             <div class="course-info-container">
@@ -760,17 +874,6 @@ function displayCourses(courses, container, showEnrollButton = false, showEnroll
                         <span class="enroll-emoji">🎓</span>
                         <span class="enroll-text">Enroll</span>
                     </button>
-                </div>
-            ` : ''}
-
-            ${showEnrolledStudents ? `
-                <div class="enrolled-students">
-                    <h6>👥 Enrolled Students:</h6>
-                    ${course.enrolledStudents.length > 0 ? `
-                        <ul>
-                            ${course.enrolledStudents.map(student => `<li>${student.name} (${student.email})</li>`).join('')}
-                        </ul>
-                    ` : '<p>No students enrolled yet.</p>'}
                 </div>
             ` : ''}
         </div>
@@ -1164,4 +1267,112 @@ function getDemoDataForEndpoint(endpoint) {
         success: true,
         data: []
     };
+}
+
+// Search functions for all tabs
+function performAssignmentsSearch() {
+    const assignmentsSearchInput = document.getElementById('assignmentsSearchInput');
+    if (!assignmentsSearchInput) return;
+
+    const searchTerm = assignmentsSearchInput.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        loadTeacherAssignments();
+        return;
+    }
+
+    // Filter assignments based on search term
+    const filteredAssignments = allAssignments.filter(assignment => {
+        return assignment.title.toLowerCase().includes(searchTerm) ||
+                assignment.description.toLowerCase().includes(searchTerm) ||
+                assignment.course.title.toLowerCase().includes(searchTerm);
+    });
+
+    displayAssignments(filteredAssignments, courseAssignmentsContainer, false, true);
+}
+
+function performGradedAssignmentsSearch() {
+    const gradedAssignmentsSearchInput = document.getElementById('gradedAssignmentsSearchInput');
+    if (!gradedAssignmentsSearchInput) return;
+
+    const searchTerm = gradedAssignmentsSearchInput.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        loadGradedAssignments();
+        return;
+    }
+
+    // Filter graded assignments based on search term
+    const filteredAssignments = allGradedAssignments.filter(assignment => {
+        return assignment.title.toLowerCase().includes(searchTerm) ||
+                assignment.description.toLowerCase().includes(searchTerm) ||
+                assignment.course.title.toLowerCase().includes(searchTerm);
+    });
+
+    displayGradedAssignments(filteredAssignments, gradedAssignmentsContainer);
+}
+
+function performGradesSearch() {
+    const gradesSearchInput = document.getElementById('gradesSearchInput');
+    if (!gradesSearchInput) return;
+
+    const searchTerm = gradesSearchInput.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        loadCourseGrades();
+        return;
+    }
+
+    // Filter grades based on search term
+    const filteredGrades = allGrades.filter(grade => {
+        return grade.student.name.toLowerCase().includes(searchTerm) ||
+                grade.student.email.toLowerCase().includes(searchTerm) ||
+                grade.course.title.toLowerCase().includes(searchTerm);
+    });
+
+    displayCourseGrades(filteredGrades, []);
+}
+
+function performMaterialsSearch() {
+    const materialsSearchInput = document.getElementById('materialsSearchInput');
+    if (!materialsSearchInput) return;
+
+    const searchTerm = materialsSearchInput.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        loadTeacherMaterials();
+        return;
+    }
+
+    // Filter materials based on search term
+    const filteredMaterials = allMaterials.filter(material => {
+        return material.title.toLowerCase().includes(searchTerm) ||
+                material.description.toLowerCase().includes(searchTerm) ||
+                material.course.title.toLowerCase().includes(searchTerm) ||
+                (material.tags && material.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+    });
+
+    displayMaterials(filteredMaterials, courseMaterialsContainer);
+}
+
+function performDiscussionsSearch() {
+    const discussionsSearchInput = document.getElementById('discussionsSearchInput');
+    if (!discussionsSearchInput) return;
+
+    const searchTerm = discussionsSearchInput.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        loadTeacherDiscussions();
+        return;
+    }
+
+    // Filter discussions based on search term
+    const filteredDiscussions = allDiscussions.filter(discussion => {
+        return discussion.title.toLowerCase().includes(searchTerm) ||
+                discussion.content.toLowerCase().includes(searchTerm) ||
+                discussion.author.name.toLowerCase().includes(searchTerm) ||
+                (discussion.tags && discussion.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+    });
+
+    displayDiscussions(filteredDiscussions, courseDiscussionsContainer, false);
 }

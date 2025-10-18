@@ -46,11 +46,6 @@
                                 <i class="fas fa-cog"></i>
                                 <span>Settings</span>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="change-password.html" class="dropdown-item">
-                                <i class="fas fa-key"></i>
-                                <span>Change Password</span>
-                            </a>
                         </div>
                         <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
                     </div>
@@ -195,6 +190,12 @@
             <div id="assignmentsTab" class="dashboard-tab">
                 <div class="tab-header">
                     <h2><i class="fas fa-tasks"></i> Course Assignments</h2>
+                    <div class="search-container">
+                        <input type="text" id="assignmentsSearchInput" placeholder="Search assignments..." class="search-input">
+                        <button id="assignmentsSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
                     <button class="btn-sm" onclick="window.location.href='create-assignment.html'">
                         <i class="fas fa-plus"></i> New Assignment
                     </button>
@@ -206,6 +207,12 @@
             <div id="gradedTab" class="dashboard-tab">
                 <div class="tab-header">
                     <h2><i class="fas fa-check-circle"></i> Graded Assignments</h2>
+                    <div class="search-container">
+                        <input type="text" id="gradedAssignmentsSearchInput" placeholder="Search graded assignments..." class="search-input">
+                        <button id="gradedAssignmentsSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
                 </div>
                 <div id="gradedAssignmentsContainer" class="tab-content"></div>
             </div>
@@ -214,6 +221,12 @@
             <div id="gradesTab" class="dashboard-tab">
                 <div class="tab-header">
                     <h2><i class="fas fa-chart-line"></i> Course Grades</h2>
+                    <div class="search-container">
+                        <input type="text" id="gradesSearchInput" placeholder="Search grades..." class="search-input">
+                        <button id="gradesSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
                 </div>
                 <div id="courseGradesContainer" class="tab-content"></div>
             </div>
@@ -222,6 +235,12 @@
             <div id="materialsTab" class="dashboard-tab">
                 <div class="tab-header">
                     <h2><i class="fas fa-folder"></i> Course Materials</h2>
+                    <div class="search-container">
+                        <input type="text" id="materialsSearchInput" placeholder="Search materials..." class="search-input">
+                        <button id="materialsSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
                     <button class="btn-sm" onclick="window.location.href='upload-material.html'">
                         <i class="fas fa-upload"></i> Upload
                     </button>
@@ -233,6 +252,12 @@
             <div id="discussionsTab" class="dashboard-tab">
                 <div class="tab-header">
                     <h2><i class="fas fa-comments"></i> Course Discussions</h2>
+                    <div class="search-container">
+                        <input type="text" id="discussionsSearchInput" placeholder="Search discussions..." class="search-input">
+                        <button id="discussionsSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
                     <button class="btn-sm" onclick="window.location.href='create-discussion.html'">
                         <i class="fas fa-plus"></i> New Discussion
                     </button>
