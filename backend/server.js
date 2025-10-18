@@ -157,14 +157,19 @@ app.get('/contact.html', (req, res) => {
 // Serve static files from frontend directory (AFTER specific routes)
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Serve index.html for root route and any unmatched routes (SPA fallback)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
-});
-
 // Health check route
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
+});
+
+// Serve index.html for root route and any unmatched routes (SPA fallback)
+// This should be placed AFTER all other routes
+app.use((req, res) => {
+  // Skip API routes
+  if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 // Error handling middleware
@@ -220,5 +225,9 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 module.exports = app;
