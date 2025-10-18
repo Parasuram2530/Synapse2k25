@@ -1,5 +1,5 @@
 // API base URL - change this to your backend URL
-const API_BASE_URL = 'https://studyzone-backend.vercel.app/api';
+const API_BASE_URL = 'https://studyzone-evf4ep0zu-parasuramgoud30-1909s-projects.vercel.app/api';
 
 // Course-related DOM elements - will be set up after DOM loads
 let teacherDashboard, studentDashboard, createCourseBtn, courseModal, courseForm, closeModal, coursesContainer, enrolledCoursesContainer, teacherCourses;
