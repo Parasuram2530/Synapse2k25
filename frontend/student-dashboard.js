@@ -424,6 +424,15 @@ function setupUserMenu() {
             logout();
         });
     }
+
+    // Add logout button event listener for the new logout button
+    const newLogoutBtn = document.getElementById('logoutBtn');
+    if (newLogoutBtn) {
+        newLogoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+        });
+    }
 }
 
 // Setup avatar menu

@@ -23,37 +23,37 @@
                     </div>
                     <span class="user-role"><span id="userRole"></span></span>
                 </div>
-                <div class="user-avatar">
-                    <img id="dashboardProfilePic" src="" alt="Profile" style="display: none; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer;">
-                    <i class="fas fa-user-circle" id="defaultAvatar" style="cursor: pointer;"></i>
-                    <div id="userDropdown" class="user-dropdown hidden">
-                        <div class="dropdown-header">
-                            <div class="user-info-dropdown">
-                                <span id="dropdownUserName"></span>
-                                <span id="dropdownUserEmail"></span>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <div class="user-avatar">
+                        <img id="dashboardProfilePic" src="" alt="Profile" style="display: none; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer;">
+                        <i class="fas fa-user-circle" id="defaultAvatar" style="cursor: pointer;"></i>
+                        <div id="userDropdown" class="user-dropdown hidden">
+                            <div class="dropdown-header">
+                                <div class="user-info-dropdown">
+                                    <span id="dropdownUserName"></span>
+                                    <span id="dropdownUserEmail"></span>
+                                </div>
                             </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" id="profileLink" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" id="settingsLink" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="change-password.html" class="dropdown-item">
+                                <i class="fas fa-key"></i>
+                                <span>Change Password</span>
+                            </a>
                         </div>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" id="profileLink" class="dropdown-item">
-                            <i class="fas fa-user"></i>
-                            <span>Profile</span>
-                        </a>
-                        <a href="#" id="settingsLink" class="dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="change-password.html" class="dropdown-item">
-                            <i class="fas fa-key"></i>
-                            <span>Change Password</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" id="logoutBtn" class="dropdown-item logout-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </a>
+                        <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
                     </div>
-                    <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
                 </div>
             </div>
         </div>
