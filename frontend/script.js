@@ -341,8 +341,29 @@ registerFormElement.addEventListener('submit', async (e) => {
 // User menu functionality - hover effect with click outside support
 const userAvatar = document.querySelector('.user-avatar');
 if (userAvatar && userDropdown) {
+    // Function to position dropdown
+    function positionDropdown() {
+        const avatarRect = userAvatar.getBoundingClientRect();
+        const dropdownRect = userDropdown.getBoundingClientRect();
+
+        // Position dropdown below the avatar, aligned to the right
+        const top = avatarRect.bottom + 8; // 8px margin
+        const right = window.innerWidth - avatarRect.right;
+
+        userDropdown.style.position = 'fixed';
+        userDropdown.style.top = top + 'px';
+        userDropdown.style.right = right + 'px';
+        userDropdown.style.left = 'auto';
+        userDropdown.style.zIndex = '100001';
+    }
+
     // Hover functionality
     userAvatar.addEventListener('mouseenter', () => {
+        // Move dropdown to body if not already there
+        if (!document.body.contains(userDropdown)) {
+            document.body.appendChild(userDropdown);
+        }
+        positionDropdown();
         userDropdown.classList.remove('hidden');
     });
 
@@ -363,6 +384,20 @@ if (userAvatar && userDropdown) {
     document.addEventListener('click', (e) => {
         if (!userAvatar.contains(e.target) && !userDropdown.contains(e.target)) {
             userDropdown.classList.add('hidden');
+        }
+    });
+
+    // Reposition on window resize
+    window.addEventListener('resize', () => {
+        if (!userDropdown.classList.contains('hidden')) {
+            positionDropdown();
+        }
+    });
+
+    // Reposition on scroll (in case of fixed positioning issues)
+    window.addEventListener('scroll', () => {
+        if (!userDropdown.classList.contains('hidden')) {
+            positionDropdown();
         }
     });
 }
