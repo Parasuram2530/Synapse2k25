@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Assignment - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="nav-header">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone Dashboard</span>
+            </div>
+            <div class="nav-actions">
+                <button id="backToDashboard" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="page-content">
+            <div class="page-header">
+                <h1><i class="fas fa-tasks"></i> Create New Assignment</h1>
+                <p>Design an assignment for your students with clear instructions and deadlines.</p>
+            </div>
+
+            <!-- Assignment Creation Form -->
+            <div class="form-card">
+                <form id="assignmentForm">
+                    <div class="form-section">
+                        <h3><i class="fas fa-info-circle"></i> Assignment Details</h3>
+
+                        <div class="form-group">
+                            <label for="assignmentTitle">
+                                <i class="fas fa-heading"></i> Assignment Title *
+                            </label>
+                            <input type="text" id="assignmentTitle" name="title" required
+                                   placeholder="e.g., Final Project - Web Application">
+                            <small class="form-hint">Choose a clear, descriptive title for the assignment</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="assignmentDescription">
+                                <i class="fas fa-align-left"></i> Assignment Description *
+                            </label>
+                            <textarea id="assignmentDescription" name="description" required rows="8"
+                                      placeholder="Provide detailed instructions for the assignment. Include:&#10;&#10;• What students need to do&#10;• Required format and structure&#10;• Resources they can use&#10;• Evaluation criteria&#10;• Any specific requirements or constraints"></textarea>
+                            <small class="form-hint">Be specific about expectations and requirements</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-cog"></i> Assignment Settings</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="assignmentCourse">
+                                    <i class="fas fa-book"></i> Course *
+                                </label>
+                                <select id="assignmentCourse" name="courseId" required>
+                                    <option value="">Select Course</option>
+                                    <!-- Courses will be loaded dynamically -->
+                                </select>
+                                <small class="form-hint">Which course does this assignment belong to?</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assignmentType">
+                                    <i class="fas fa-tag"></i> Assignment Type
+                                </label>
+                                <select id="assignmentType" name="type">
+                                    <option value="homework">Homework</option>
+                                    <option value="quiz">Quiz</option>
+                                    <option value="project">Project</option>
+                                    <option value="exam">Exam</option>
+                                    <option value="presentation">Presentation</option>
+                                    <option value="lab">Lab Work</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <small class="form-hint">Categorize the type of assignment</small>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="assignmentDueDate">
+                                    <i class="fas fa-calendar-times"></i> Due Date & Time *
+                                </label>
+                                <input type="datetime-local" id="assignmentDueDate" name="dueDate" required>
+                                <small class="form-hint">When is this assignment due?</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assignmentMaxPoints">
+                                    <i class="fas fa-star"></i> Maximum Points *
+                                </label>
+                                <input type="number" id="assignmentMaxPoints" name="maxPoints" value="100" min="1" required>
+                                <small class="form-hint">Total points possible for this assignment</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-file-alt"></i> Submission Requirements</h3>
+
+                        <div class="form-group">
+                            <label for="submissionInstructions">
+                                <i class="fas fa-list-check"></i> Submission Instructions
+                            </label>
+                            <textarea id="submissionInstructions" name="submissionInstructions" rows="4"
+                                      placeholder="Specify how students should submit their work:&#10;&#10;• File format requirements&#10;• Naming conventions&#10;• Where to submit&#10;• Any additional requirements"></textarea>
+                            <small class="form-hint">Tell students exactly how to submit their work</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="allowedFileTypes">
+                                    <i class="fas fa-file-upload"></i> Allowed File Types
+                                </label>
+                                <input type="text" id="allowedFileTypes" name="allowedFileTypes"
+                                       placeholder="e.g., .pdf, .docx, .zip">
+                                <small class="form-hint">Comma-separated file extensions (leave empty for any)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxFileSize">
+                                    <i class="fas fa-weight"></i> Max File Size (MB)
+                                </label>
+                                <input type="number" id="maxFileSize" name="maxFileSize" min="1" placeholder="10">
+                                <small class="form-hint">Maximum file size in megabytes</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="allowLateSubmissions" name="allowLateSubmissions" value="true">
+                                <i class="fas fa-clock"></i> Allow Late Submissions
+                            </label>
+                            <small class="form-hint">Check if students can submit after the due date</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-chart-line"></i> Grading & Feedback</h3>
+
+                        <div class="form-group">
+                            <label for="gradingRubric">
+                                <i class="fas fa-clipboard-check"></i> Grading Rubric
+                            </label>
+                            <textarea id="gradingRubric" name="gradingRubric" rows="6"
+                                      placeholder="Define the grading criteria:&#10;&#10;• Excellent (90-100%):&#10;• Good (80-89%):&#10;• Satisfactory (70-79%):&#10;• Needs Improvement (60-69%):&#10;• Unsatisfactory (0-59%):"></textarea>
+                            <small class="form-hint">Help students understand how their work will be evaluated</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="showRubricToStudents" name="showRubricToStudents" value="true" checked>
+                                <i class="fas fa-eye"></i> Show Grading Rubric to Students
+                            </label>
+                            <small class="form-hint">Let students see the grading criteria before submitting</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-bell"></i> Notifications & Visibility</h3>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isPublished" name="isPublished" value="true" checked>
+                                <i class="fas fa-globe"></i> Publish Assignment Immediately
+                            </label>
+                            <small class="form-hint">Make the assignment visible to students right away</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sendNotification" name="sendNotification" value="true" checked>
+                                <i class="fas fa-bell"></i> Send Notification to Students
+                            </label>
+                            <small class="form-hint">Notify enrolled students about this new assignment</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="previewBtn" class="btn-secondary">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button type="button" id="cancelBtn" class="btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Create Assignment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container hidden"></div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal hidden">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2>Assignment Preview</h2>
+            <div id="assignmentPreview"></div>
+        </div>
+    </div>
+
+    <script src="create-assignment.js"></script>
+</body>
+</html>

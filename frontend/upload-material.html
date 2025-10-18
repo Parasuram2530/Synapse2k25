@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Material - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="nav-header">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone Dashboard</span>
+            </div>
+            <div class="nav-actions">
+                <button id="backToDashboard" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="page-content">
+            <div class="page-header">
+                <h1><i class="fas fa-cloud-upload-alt"></i> Upload Course Material</h1>
+                <p>Share resources, documents, and media with your students.</p>
+            </div>
+
+            <!-- Upload Form -->
+            <div class="form-card">
+                <form id="materialForm" enctype="multipart/form-data">
+                    <div class="form-section">
+                        <h3><i class="fas fa-info-circle"></i> Material Information</h3>
+
+                        <div class="form-group">
+                            <label for="materialTitle">
+                                <i class="fas fa-heading"></i> Title *
+                            </label>
+                            <input type="text" id="materialTitle" name="title" required
+                                   placeholder="e.g., Week 1 Lecture Slides">
+                            <small class="form-hint">Give your material a clear, descriptive title</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="materialDescription">
+                                <i class="fas fa-align-left"></i> Description
+                            </label>
+                            <textarea id="materialDescription" name="description" rows="4"
+                                      placeholder="Describe what this material contains and how students should use it..."></textarea>
+                            <small class="form-hint">Optional description of the material's content and purpose</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-folder"></i> Organization</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="materialCourse">
+                                    <i class="fas fa-book"></i> Course *
+                                </label>
+                                <select id="materialCourse" name="courseId" required>
+                                    <option value="">Select Course</option>
+                                    <!-- Courses will be loaded dynamically -->
+                                </select>
+                                <small class="form-hint">Which course does this material belong to?</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="materialCategory">
+                                    <i class="fas fa-tags"></i> Category
+                                </label>
+                                <select id="materialCategory" name="category">
+                                    <option value="resource">Resource</option>
+                                    <option value="lecture">Lecture</option>
+                                    <option value="assignment">Assignment</option>
+                                    <option value="exam">Exam</option>
+                                    <option value="lab">Lab Work</option>
+                                    <option value="project">Project</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <small class="form-hint">Categorize the type of material</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="materialTags">
+                                <i class="fas fa-hashtag"></i> Tags
+                            </label>
+                            <input type="text" id="materialTags" name="tags"
+                                   placeholder="e.g., week1, introduction, slides, pdf">
+                            <small class="form-hint">Comma-separated tags to help students find this material</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-file-upload"></i> File Upload</h3>
+
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <h4>Drag & drop your file here</h4>
+                                <p>or <span class="upload-link">browse to choose a file</span></p>
+                                <input type="file" id="materialFile" name="file" required style="display: none;">
+                            </div>
+                        </div>
+
+                        <div id="fileInfo" class="file-info-section hidden">
+                            <div class="file-info-header">
+                                <i class="fas fa-file"></i>
+                                <span id="fileName">No file selected</span>
+                                <button type="button" id="removeFile" class="remove-file-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="file-details">
+                                <span id="fileSize">Size: 0 MB</span>
+                                <span id="fileType">Type: Unknown</span>
+                            </div>
+                        </div>
+
+                        <div class="file-requirements">
+                            <h5><i class="fas fa-check-circle"></i> Supported Formats:</h5>
+                            <div class="format-grid">
+                                <div class="format-group">
+                                    <strong>Documents:</strong>
+                                    <span>PDF, DOC, DOCX, TXT</span>
+                                </div>
+                                <div class="format-group">
+                                    <strong>Presentations:</strong>
+                                    <span>PPT, PPTX</span>
+                                </div>
+                                <div class="format-group">
+                                    <strong>Spreadsheets:</strong>
+                                    <span>XLS, XLSX</span>
+                                </div>
+                                <div class="format-group">
+                                    <strong>Images:</strong>
+                                    <span>JPG, JPEG, PNG, GIF</span>
+                                </div>
+                                <div class="format-group">
+                                    <strong>Archives:</strong>
+                                    <span>ZIP, RAR</span>
+                                </div>
+                                <div class="format-group">
+                                    <strong>Other:</strong>
+                                    <span>MP4, AVI, MOV (videos)</span>
+                                </div>
+                            </div>
+                            <div class="file-limits">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <strong>Maximum file size:</strong> 50MB
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-globe"></i> Visibility & Access</h3>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="materialPublic" name="isPublic" value="true">
+                                <i class="fas fa-eye"></i> Make publicly accessible
+                            </label>
+                            <small class="form-hint">Allow students to access this material without being enrolled in the course</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sendNotification" name="sendNotification" value="true" checked>
+                                <i class="fas fa-bell"></i> Notify students about this material
+                            </label>
+                            <small class="form-hint">Send a notification to enrolled students when this material is uploaded</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelBtn" class="btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-upload"></i> Upload Material
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container hidden"></div>
+
+    <!-- Upload Progress Modal -->
+    <div id="uploadProgressModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="upload-progress">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Uploading Material...</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Preparing upload...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="upload-material.js"></script>
+</body>
+</html>

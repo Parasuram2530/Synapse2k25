@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - StudyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learning Management System</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Settings Page -->
+    <main class="page-container">
+        <div class="page-header">
+            <h1><i class="fas fa-cog"></i> Settings</h1>
+            <p>Customize your learning experience</p>
+        </div>
+
+        <div class="settings-container">
+            <!-- Appearance Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-palette"></i>
+                    <h2>Appearance</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Theme</h3>
+                            <p>Choose your preferred color scheme</p>
+                        </div>
+                        <div class="setting-control">
+                            <div class="theme-toggle">
+                                <button id="lightThemeBtn" class="theme-btn active" data-theme="light">
+                                    <i class="fas fa-sun"></i> Light
+                                </button>
+                                <button id="darkThemeBtn" class="theme-btn" data-theme="dark">
+                                    <i class="fas fa-moon"></i> Dark
+                                </button>
+                                <button id="autoThemeBtn" class="theme-btn" data-theme="auto">
+                                    <i class="fas fa-adjust"></i> Auto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Dashboard Layout</h3>
+                            <p>Choose how cards are arranged on your dashboard</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="dashboardLayout" class="setting-select">
+                                <option value="grid">Grid Layout</option>
+                                <option value="list">List Layout</option>
+                                <option value="compact">Compact Layout</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-bell"></i>
+                    <h2>Notifications</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Email Notifications</h3>
+                            <p>Receive notifications via email</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Assignment Reminders</h3>
+                            <p>Get reminded about upcoming assignment deadlines</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="assignmentReminders" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Grade Notifications</h3>
+                            <p>Receive notifications when assignments are graded</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="gradeNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Discussion Notifications</h3>
+                            <p>Get notified about new discussions and replies</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="discussionNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language & Localization -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-globe"></i>
+                    <h2>Language & Localization</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Language</h3>
+                            <p>Select your preferred language</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="languageSelect" class="setting-select">
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="de">Deutsch</option>
+                                <option value="hi">हिन्दी</option>
+                                <option value="zh">中文</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Timezone</h3>
+                            <p>Your current timezone for displaying dates and times</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="timezoneSelect" class="setting-select">
+                                <option value="UTC">UTC</option>
+                                <option value="America/New_York">Eastern Time</option>
+                                <option value="America/Chicago">Central Time</option>
+                                <option value="America/Denver">Mountain Time</option>
+                                <option value="America/Los_Angeles">Pacific Time</option>
+                                <option value="Europe/London">London</option>
+                                <option value="Europe/Paris">Paris</option>
+                                <option value="Asia/Tokyo">Tokyo</option>
+                                <option value="Asia/Kolkata">India (IST)</option>
+                                <option value="Australia/Sydney">Sydney</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy & Security -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Privacy & Security</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Profile Visibility</h3>
+                            <p>Control who can see your profile information</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="profileVisibility" class="setting-select">
+                                <option value="public">Public</option>
+                                <option value="students">Students Only</option>
+                                <option value="teachers">Teachers Only</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Activity Status</h3>
+                            <p>Show when you're active on the platform</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="activityStatus" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-universal-access"></i>
+                    <h2>Accessibility</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Font Size</h3>
+                            <p>Adjust text size for better readability</p>
+                        </div>
+                        <div class="setting-control">
+                            <div class="font-size-control">
+                                <button id="decreaseFont" class="font-btn">-</button>
+                                <span id="fontSizeDisplay">Medium</span>
+                                <button id="increaseFont" class="font-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>High Contrast</h3>
+                            <p>Increase contrast for better visibility</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="highContrast">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Reduce Motion</h3>
+                            <p>Minimize animations and transitions</p>
+                        </div>
+                        <div class="setting-control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="reduceMotion">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data & Storage -->
+            <div class="settings-section">
+                <div class="section-header">
+                    <i class="fas fa-database"></i>
+                    <h2>Data & Storage</h2>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Data Export</h3>
+                            <p>Download your data in JSON format</p>
+                        </div>
+                        <div class="setting-control">
+                            <button id="exportDataBtn" class="btn-secondary">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Clear Cache</h3>
+                            <p>Clear locally stored data and cache</p>
+                        </div>
+                        <div class="setting-control">
+                            <button id="clearCacheBtn" class="btn-secondary">
+                                <i class="fas fa-trash"></i> Clear Cache
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="settings-actions">
+                <button id="saveSettingsBtn" class="btn-primary">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+                <button id="resetSettingsBtn" class="btn-secondary">
+                    <i class="fas fa-undo"></i> Reset to Defaults
+                </button>
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header success">
+                <i class="fas fa-check-circle"></i>
+                <h2>Settings Saved!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Your settings have been saved successfully.</p>
+                <p>Some changes may require a page refresh to take effect.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="refreshPageBtn" class="btn-primary">Refresh Page</button>
+                <button id="closeSuccessModal" class="btn-secondary">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+</html>

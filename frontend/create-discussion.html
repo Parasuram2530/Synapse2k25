@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Discussion - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="nav-header">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone Dashboard</span>
+            </div>
+            <div class="nav-actions">
+                <button id="backToDashboard" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="page-content">
+            <div class="page-header">
+                <h1><i class="fas fa-comments"></i> Create Discussion</h1>
+                <p>Start a conversation with your students or post an announcement.</p>
+            </div>
+
+            <!-- Discussion Creation Form -->
+            <div class="form-card">
+                <form id="discussionForm">
+                    <div class="form-section">
+                        <h3><i class="fas fa-info-circle"></i> Discussion Details</h3>
+
+                        <div class="form-group">
+                            <label for="discussionTitle">
+                                <i class="fas fa-heading"></i> Title *
+                            </label>
+                            <input type="text" id="discussionTitle" name="title" required
+                                   placeholder="e.g., Welcome to the Course!">
+                            <small class="form-hint">Choose a clear, engaging title for your discussion</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discussionContent">
+                                <i class="fas fa-align-left"></i> Content *
+                            </label>
+                            <textarea id="discussionContent" name="content" required rows="8"
+                                      placeholder="Share your thoughts, ask questions, or provide important information. Be specific and encouraging to promote engagement."></textarea>
+                            <small class="form-hint">Write your message clearly and encourage participation</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-folder"></i> Organization</h3>
+
+                        <div class="form-group">
+                            <label for="discussionCourse">
+                                <i class="fas fa-book"></i> Course *
+                            </label>
+                            <select id="discussionCourse" name="courseId" required>
+                                <option value="">Select Course</option>
+                                <!-- Courses will be loaded dynamically -->
+                            </select>
+                            <small class="form-hint">Which course does this discussion belong to?</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discussionTags">
+                                <i class="fas fa-hashtag"></i> Tags
+                            </label>
+                            <input type="text" id="discussionTags" name="tags"
+                                   placeholder="e.g., welcome, important, question, help">
+                            <small class="form-hint">Comma-separated tags to categorize your discussion</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-cog"></i> Discussion Settings</h3>
+
+                        <div class="discussion-type-selector">
+                            <h4><i class="fas fa-toggle-on"></i> Discussion Type</h4>
+                            <div class="type-options">
+                                <label class="type-option">
+                                    <input type="radio" name="discussionType" value="discussion" checked>
+                                    <div class="type-card">
+                                        <i class="fas fa-comments"></i>
+                                        <h5>Regular Discussion</h5>
+                                        <p>Open conversation for students to participate and reply</p>
+                                    </div>
+                                </label>
+                                <label class="type-option">
+                                    <input type="radio" name="discussionType" value="announcement">
+                                    <div class="type-card announcement">
+                                        <i class="fas fa-bullhorn"></i>
+                                        <h5>Announcement</h5>
+                                        <p>Important information that students should know (teachers only)</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isPinned" name="isPinned" value="true">
+                                <i class="fas fa-thumbtack"></i> Pin this discussion
+                            </label>
+                            <small class="form-hint">Keep this discussion at the top of the list</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isClosed" name="isClosed" value="true">
+                                <i class="fas fa-lock"></i> Close discussion immediately
+                            </label>
+                            <small class="form-hint">Prevent new replies to this discussion</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sendNotification" name="sendNotification" value="true" checked>
+                                <i class="fas fa-bell"></i> Send notification to students
+                            </label>
+                            <small class="form-hint">Notify enrolled students about this new discussion</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-eye"></i> Preview</h3>
+
+                        <div class="preview-section">
+                            <div class="preview-header">
+                                <h4>Discussion Preview</h4>
+                                <button type="button" id="refreshPreview" class="btn-secondary btn-small">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div id="discussionPreview" class="discussion-preview">
+                                <div class="discussion-card preview-card">
+                                    <div class="discussion-header">
+                                        <h5 id="previewTitle">Discussion Title</h5>
+                                        <span id="previewBadge" class="announcement-badge hidden">Announcement</span>
+                                    </div>
+                                    <div class="discussion-meta">
+                                        <span class="author">By <span id="previewAuthor">You</span></span>
+                                        <span class="date">Just now</span>
+                                        <span class="replies">0 replies</span>
+                                    </div>
+                                    <div class="discussion-content">
+                                        <p id="previewContent">Discussion content will appear here...</p>
+                                    </div>
+                                    <div id="previewTags" class="discussion-tags hidden">
+                                        <!-- Tags will be shown here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="previewBtn" class="btn-secondary">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button type="button" id="cancelBtn" class="btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Create Discussion
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container hidden"></div>
+
+    <script src="create-discussion.js"></script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Catalog - Learning Management System</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Course data (simulating API data)
+        const COURSES_DATA = [
+            {
+                id: 1,
+                title: "CSE",
+                description: "A very good course covering core computer science concepts.",
+                duration: "45 days",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 2,
+                title: "Artificial Intelligence Ethics",
+                description: "Explore the ethical implications of AI development and deployment. Discuss bias, privacy, and responsible AI practices.",
+                duration: "8 weeks",
+                teacher: "Dr. Lisa Park",
+                enrolledStudents: 0,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 3,
+                title: "Software Engineering Principles",
+                description: "Learn software development methodologies, testing strategies, and project management for real-world applications.",
+                duration: "14 weeks",
+                teacher: "Prof. David Thompson",
+                enrolledStudents: 0,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 4,
+                title: "Cloud Computing and AWS",
+                description: "Master cloud computing concepts and AWS services. Learn to deploy, manage, and scale applications in the cloud.",
+                duration: "12 weeks",
+                teacher: "Dr. Emily Rodriguez",
+                enrolledStudents: 0,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 5,
+                title: "Mobile App Development",
+                description: "Build native mobile applications for iOS and Android using React Native and Flutter.",
+                duration: "15 weeks",
+                teacher: "Prof. Michael Chen",
+                enrolledStudents: 0,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 6,
+                title: "Cybersecurity Fundamentals",
+                description: "Understand cybersecurity principles, encryption, and ethical hacking techniques for securing systems.",
+                duration: "13 weeks",
+                teacher: "Dr. Sarah Johnson",
+                enrolledStudents: 0,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 7,
+                title: "Machine Learning Basics",
+                description: "Introduction to supervised and unsupervised learning, neural networks, and practical ML applications in Python.",
+                duration: "16 weeks",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 8,
+                title: "Database Design and Management",
+                description: "Learn SQL, NoSQL, normalization, and indexing for efficient database systems.",
+                duration: "11 weeks",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 9,
+                title: "Data Structures and Algorithms",
+                description: "Deep dive into essential data structures, algorithm design, and complexity analysis.",
+                duration: "14 weeks",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 10,
+                title: "Web Development Fundamentals",
+                description: "Master HTML, CSS, and JavaScript. Build responsive websites with modern development practices.",
+                duration: "10 weeks",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            },
+            {
+                id: 11,
+                title: "Introduction to Computer Science",
+                description: "Learn programming, algorithms, and computer systems — the perfect starting point for beginners.",
+                duration: "12 weeks",
+                teacher: "Golla Deekshitha",
+                enrolledStudents: 1,
+                createdAt: "2025-10-16"
+            }
+        ];
+
+        function CourseCard({ course, isEnrolled, onEnroll }) {
+            return (
+                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 hover:scale-105 border border-gray-100">
+                    <div className="space-y-4">
+                        {/* Course Title */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-2xl">📘</span>
+                            <h3 className="text-xl font-bold text-gray-800">{course.title}</h3>
+                        </div>
+
+                        {/* Description */}
+                        <div className="flex items-start gap-3">
+                            <span className="text-lg mt-0.5">📝</span>
+                            <p className="text-gray-600 text-sm leading-relaxed">{course.description}</p>
+                        </div>
+
+                        {/* Course Info */}
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg">⏱️</span>
+                                <span className="text-sm font-medium text-gray-700">Duration:</span>
+                                <span className="text-sm text-gray-600">{course.duration}</span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg">👩‍🏫</span>
+                                <span className="text-sm font-medium text-gray-700">Teacher:</span>
+                                <span className="text-sm text-gray-600">{course.teacher}</span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg">👥</span>
+                                <span className="text-sm font-medium text-gray-700">Enrolled:</span>
+                                <span className="text-sm text-gray-600">{course.enrolledStudents} {course.enrolledStudents === 1 ? 'student' : 'students'}</span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg">🗓️</span>
+                                <span className="text-sm font-medium text-gray-700">Created:</span>
+                                <span className="text-sm text-gray-600">{new Date(course.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+
+                        {/* Enroll Button */}
+                        <button
+                            onClick={() => onEnroll(course.id)}
+                            className={`w-full py-3 px-4 rounded-xl font-semibold text-sm uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 ${
+                                isEnrolled
+                                    ? 'bg-green-500 hover:bg-green-600 text-white cursor-default'
+                                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white hover:shadow-lg'
+                            }`}
+                            disabled={isEnrolled}
+                        >
+                            <span className="text-lg">{isEnrolled ? '✅' : '🎓'}</span>
+                            <span>{isEnrolled ? 'Enrolled' : 'Enroll'}</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        function CourseCatalog() {
+            const [activeTab, setActiveTab] = useState('all');
+            const [enrolledCourses, setEnrolledCourses] = useState(new Set([1, 7, 8, 9, 10, 11])); // Pre-enroll some courses
+            const [darkMode, setDarkMode] = useState(false);
+
+            const handleEnroll = (courseId) => {
+                setEnrolledCourses(prev => new Set([...prev, courseId]));
+            };
+
+            const displayedCourses = activeTab === 'all'
+                ? COURSES_DATA
+                : COURSES_DATA.filter(course => enrolledCourses.has(course.id));
+
+            return (
+                <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+                    {/* Header */}
+                    <header className={`${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-3xl">🎓</span>
+                                    <h1 className="text-2xl font-bold">Course Catalog</h1>
+                                </div>
+                                <button
+                                    onClick={() => setDarkMode(!darkMode)}
+                                    className={`p-2 rounded-lg ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'} transition-colors`}
+                                >
+                                    {darkMode ? '☀️' : '🌙'}
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        {/* Dashboard Overview */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            {/* Total Courses */}
+                            <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
+                                <div className="text-4xl mb-2">📚</div>
+                                <div className="text-sm font-medium text-gray-600 mb-1">Total Courses</div>
+                                <div className="text-3xl font-bold text-indigo-600">{COURSES_DATA.length}</div>
+                            </div>
+
+                            {/* Courses Enrolled */}
+                            <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
+                                <div className="text-4xl mb-2">🎓</div>
+                                <div className="text-sm font-medium text-gray-600 mb-1">Courses Enrolled</div>
+                                <div className="text-3xl font-bold text-green-600">{enrolledCourses.size}</div>
+                            </div>
+
+                            {/* Assignments */}
+                            <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
+                                <div className="text-4xl mb-2">🧾</div>
+                                <div className="text-sm font-medium text-gray-600 mb-1">Assignments</div>
+                                <div className="text-3xl font-bold text-orange-600">12</div>
+                            </div>
+
+                            {/* Total Students */}
+                            <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
+                                <div className="text-4xl mb-2">👥</div>
+                                <div className="text-sm font-medium text-gray-600 mb-1">Total Students</div>
+                                <div className="text-3xl font-bold text-purple-600">
+                                    {COURSES_DATA.reduce((acc, course) => acc + course.enrolledStudents, 0)}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tabs */}
+                        <div className="flex justify-center mb-8">
+                            <div className={`flex rounded-xl p-1 ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
+                                <button
+                                    onClick={() => setActiveTab('all')}
+                                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                                        activeTab === 'all'
+                                            ? 'bg-white text-blue-600 shadow-md'
+                                            : `${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`
+                                    }`}
+                                >
+                                    All Courses ({COURSES_DATA.length})
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('enrolled')}
+                                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                                        activeTab === 'enrolled'
+                                            ? 'bg-white text-blue-600 shadow-md'
+                                            : `${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`
+                                    }`}
+                                >
+                                    My Enrolled Courses ({enrolledCourses.size})
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Course Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {displayedCourses.map(course => (
+                                <CourseCard
+                                    key={course.id}
+                                    course={course}
+                                    isEnrolled={enrolledCourses.has(course.id)}
+                                    onEnroll={handleEnroll}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Empty State */}
+                        {displayedCourses.length === 0 && (
+                            <div className="text-center py-12">
+                                <span className="text-6xl mb-4 block">📚</span>
+                                <h3 className="text-xl font-semibold mb-2">No courses found</h3>
+                                <p className={`text-gray-600 ${darkMode ? 'text-gray-400' : ''}`}>
+                                    {activeTab === 'enrolled' ? 'You haven\'t enrolled in any courses yet.' : 'No courses available.'}
+                                </p>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<CourseCatalog />, document.getElementById('root'));
+    </script>
+</body>
+</html>

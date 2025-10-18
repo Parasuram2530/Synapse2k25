@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="nav-header">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone Dashboard</span>
+            </div>
+            <div class="nav-actions">
+                <button id="backToDashboard" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="page-content">
+            <div class="page-header">
+                <h1><i class="fas fa-bell"></i> Notifications</h1>
+                <p>Stay updated with the latest course activities and announcements.</p>
+            </div>
+
+            <!-- Notification Controls -->
+            <div class="notification-controls">
+                <div class="control-buttons">
+                    <button id="markAllReadBtn" class="btn-secondary">
+                        <i class="fas fa-check-double"></i> Mark All as Read
+                    </button>
+                    <button id="refreshBtn" class="btn-secondary">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="filter-controls">
+                    <select id="filterType" class="filter-select">
+                        <option value="all">All Notifications</option>
+                        <option value="unread">Unread Only</option>
+                        <option value="assignment_created">Assignments</option>
+                        <option value="submission_graded">Grades</option>
+                        <option value="discussion_post">Discussions</option>
+                        <option value="material_uploaded">Materials</option>
+                        <option value="announcement">Announcements</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Notification Stats -->
+            <div class="notification-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalNotifications">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="unreadNotifications">0</div>
+                    <div class="stat-label">Unread</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todayNotifications">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+            </div>
+
+            <!-- Notifications List -->
+            <div class="notifications-container">
+                <div id="notificationsList" class="notifications-list">
+                    <!-- Notifications will be loaded here -->
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading notifications...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state hidden">
+                    <i class="fas fa-bell-slash"></i>
+                    <h3>No notifications yet</h3>
+                    <p>When you receive notifications, they'll appear here.</p>
+                </div>
+
+                <!-- Load More Button -->
+                <div id="loadMoreContainer" class="load-more-container hidden">
+                    <button id="loadMoreBtn" class="btn-secondary">
+                        <i class="fas fa-chevron-down"></i> Load More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container hidden"></div>
+
+    <script src="notifications.js"></script>
+</body>
+</html>

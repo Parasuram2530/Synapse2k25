@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - StudyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="dashboard-nav">
+            <div class="dashboard-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone Dashboard</span>
+            </div>
+            <div class="dashboard-user">
+                <div class="user-info">
+                    <div class="welcome-message" id="welcomeMessage">
+                        <span class="welcome-text">Welcome back, <span id="userName"></span> 👋</span>
+                        <span class="welcome-subtitle">Ready to teach today?</span>
+                    </div>
+                    <span class="user-role"><span id="userRole"></span></span>
+                </div>
+                <div class="user-avatar">
+                    <img id="dashboardProfilePic" src="" alt="Profile" style="display: none; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer;">
+                    <i class="fas fa-user-circle" id="defaultAvatar" style="cursor: pointer;"></i>
+                    <div id="userDropdown" class="user-dropdown hidden">
+                        <div class="dropdown-header">
+                            <div class="user-info-dropdown">
+                                <span id="dropdownUserName"></span>
+                                <span id="dropdownUserEmail"></span>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="profileLink" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" id="settingsLink" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="change-password.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logoutBtn" class="dropdown-item logout-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                    <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-main">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <h3>Teacher Dashboard</h3>
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="#courses" class="sidebar-link active" data-tab="courses">
+                                <i class="fas fa-book"></i>
+                                <span>My Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#assignments" class="sidebar-link" data-tab="assignments">
+                                <i class="fas fa-tasks"></i>
+                                <span>Course Assignments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#graded" class="sidebar-link" data-tab="graded">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Graded Assignments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#grades" class="sidebar-link" data-tab="grades">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Course Grades</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#materials" class="sidebar-link" data-tab="materials">
+                                <i class="fas fa-folder"></i>
+                                <span>Course Materials</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#discussions" class="sidebar-link" data-tab="discussions">
+                                <i class="fas fa-comments"></i>
+                                <span>Course Discussions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="notifications.html" class="sidebar-link">
+                                <i class="fas fa-bell"></i>
+                                <span>Notifications</span>
+                                <span id="notificationBadge" class="notification-badge hidden">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Quick Actions</h3>
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="create-course.html" class="sidebar-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Create Course</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="create-assignment.html" class="sidebar-link">
+                                <i class="fas fa-tasks"></i>
+                                <span>Create Assignment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="upload-material.html" class="sidebar-link">
+                                <i class="fas fa-upload"></i>
+                                <span>Upload Material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="create-discussion.html" class="sidebar-link">
+                                <i class="fas fa-comments"></i>
+                                <span>New Discussion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Overview</h3>
+                    <div class="sidebar-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-book"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="coursesCount">0</span>
+                                <span class="stat-label">Courses</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-tasks"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="assignmentsCount">0</span>
+                                <span class="stat-label">Assignments</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-users"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-number" id="studentsCount">0</span>
+                                <span class="stat-label">Students</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <!-- My Courses Tab -->
+            <div id="coursesTab" class="dashboard-tab active">
+                <div class="tab-header">
+                    <h2><i class="fas fa-book"></i> My Courses</h2>
+                    <div class="search-container">
+                        <input type="text" id="teacherCourseSearchInput" placeholder="Search my courses..." class="search-input">
+                        <button id="teacherCourseSearchBtn" class="btn-secondary search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    <button class="btn-sm" onclick="window.location.href='create-course.html'">
+                        <i class="fas fa-plus"></i> Add Course
+                    </button>
+                </div>
+                <div id="teacherCourses" class="tab-content"></div>
+            </div>
+
+            <!-- Course Assignments Tab -->
+            <div id="assignmentsTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-tasks"></i> Course Assignments</h2>
+                    <button class="btn-sm" onclick="window.location.href='create-assignment.html'">
+                        <i class="fas fa-plus"></i> New Assignment
+                    </button>
+                </div>
+                <div id="courseAssignmentsContainer" class="tab-content"></div>
+            </div>
+
+            <!-- Graded Assignments Tab -->
+            <div id="gradedTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-check-circle"></i> Graded Assignments</h2>
+                </div>
+                <div id="gradedAssignmentsContainer" class="tab-content"></div>
+            </div>
+
+            <!-- Course Grades Tab -->
+            <div id="gradesTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-chart-line"></i> Course Grades</h2>
+                </div>
+                <div id="courseGradesContainer" class="tab-content"></div>
+            </div>
+
+            <!-- Course Materials Tab -->
+            <div id="materialsTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-folder"></i> Course Materials</h2>
+                    <button class="btn-sm" onclick="window.location.href='upload-material.html'">
+                        <i class="fas fa-upload"></i> Upload
+                    </button>
+                </div>
+                <div id="courseMaterialsContainer" class="tab-content"></div>
+            </div>
+
+            <!-- Course Discussions Tab -->
+            <div id="discussionsTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-comments"></i> Course Discussions</h2>
+                    <button class="btn-sm" onclick="window.location.href='create-discussion.html'">
+                        <i class="fas fa-plus"></i> New Discussion
+                    </button>
+                </div>
+                <div id="courseDiscussionsContainer" class="tab-content"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals (same as before) -->
+    <div id="courseModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create New Course</h2>
+            <form id="courseForm">
+                <div class="form-group">
+                    <label for="courseTitle">Course Title</label>
+                    <input type="text" id="courseTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="courseDescription">Description</label>
+                    <textarea id="courseDescription" name="description" required rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="courseDuration">Duration</label>
+                    <input type="text" id="courseDuration" name="duration" required placeholder="e.g., 8 weeks">
+                </div>
+                <button type="submit" class="btn-primary">Create Course</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="assignmentModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create New Assignment</h2>
+            <form id="assignmentForm">
+                <div class="form-group">
+                    <label for="assignmentTitle">Assignment Title</label>
+                    <input type="text" id="assignmentTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="assignmentDescription">Description</label>
+                    <textarea id="assignmentDescription" name="description" required rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="assignmentCourse">Course</label>
+                    <select id="assignmentCourse" name="courseId" required>
+                        <option value="">Select Course</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="assignmentDueDate">Due Date</label>
+                    <input type="datetime-local" id="assignmentDueDate" name="dueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="assignmentMaxPoints">Max Points</label>
+                    <input type="number" id="assignmentMaxPoints" name="maxPoints" value="100" min="0" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Assignment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="submissionModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="submissionModalTitle">Submit Assignment</h2>
+            <div id="assignmentDetails"></div>
+            <form id="submissionForm">
+                <input type="hidden" id="submissionAssignmentId" name="assignmentId">
+                <div class="form-group">
+                    <label for="submissionContent">Your Submission</label>
+                    <textarea id="submissionContent" name="content" required rows="8" placeholder="Enter your assignment submission here..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Assignment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="gradingModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Grade Submission</h2>
+            <div id="gradingDetails"></div>
+            <form id="gradingForm">
+                <input type="hidden" id="gradingSubmissionId" name="submissionId">
+                <div class="form-group">
+                    <label for="grade">Grade (0-100)</label>
+                    <input type="number" id="grade" name="grade" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedback">Feedback</label>
+                    <textarea id="feedback" name="feedback" rows="4" placeholder="Provide feedback for the student..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Grade</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="materialModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload Course Material</h2>
+            <form id="materialForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="materialTitle">Title</label>
+                    <input type="text" id="materialTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="materialDescription">Description</label>
+                    <textarea id="materialDescription" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="materialCourse">Course</label>
+                    <select id="materialCourse" name="courseId" required>
+                        <option value="">Select Course</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="materialCategory">Category</label>
+                    <select id="materialCategory" name="category">
+                        <option value="resource">Resource</option>
+                        <option value="lecture">Lecture</option>
+                        <option value="assignment">Assignment</option>
+                        <option value="exam">Exam</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="materialFile">File</label>
+                    <input type="file" id="materialFile" name="file" required accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov,.zip,.rar">
+                    <small class="file-info">Max file size: 50MB. Supported formats: PDF, PPT, DOC, XLS, TXT, images, videos, archives</small>
+                </div>
+                <div class="form-group">
+                    <label for="materialTags">Tags (comma-separated)</label>
+                    <input type="text" id="materialTags" name="tags" placeholder="e.g., week1, introduction, slides">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="materialPublic" name="isPublic" value="true">
+                        Make publicly accessible
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary">Upload Material</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="discussionModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="discussionModalTitle">New Discussion</h2>
+            <form id="discussionForm">
+                <input type="hidden" id="discussionCourseId" name="courseId">
+                <div class="form-group">
+                    <label for="discussionTitle">Title</label>
+                    <input type="text" id="discussionTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="discussionContent">Content</label>
+                    <textarea id="discussionContent" name="content" required rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="discussionTags">Tags (comma-separated)</label>
+                    <input type="text" id="discussionTags" name="tags" placeholder="e.g., question, help, discussion">
+                </div>
+                <div class="form-group" id="announcementOption">
+                    <label>
+                        <input type="checkbox" id="isAnnouncement" name="isAnnouncement" value="true">
+                        Post as announcement (teachers only)
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary">Create Discussion</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="replyModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Reply to Discussion</h2>
+            <div id="replyDiscussionDetails"></div>
+            <form id="replyForm">
+                <input type="hidden" id="replyDiscussionId" name="discussionId">
+                <div class="form-group">
+                    <label for="replyContent">Your Reply</label>
+                    <textarea id="replyContent" name="content" required rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Post Reply</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="notificationsModal" class="modal hidden">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2>Notifications</h2>
+            <div class="notifications-header">
+                <button id="markAllReadBtn" class="btn-secondary">Mark All as Read</button>
+            </div>
+            <div id="notificationsContainer"></div>
+            <div id="loadMoreNotifications" class="load-more hidden">
+                <button class="btn-secondary">Load More</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+</html>

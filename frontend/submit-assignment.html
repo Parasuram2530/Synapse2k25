@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Assignment - StudyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learning Management System</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Assignment Submission Form -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2><i class="fas fa-file-upload"></i> Submit Assignment</h2>
+                <p>Upload your assignment work</p>
+            </div>
+
+            <!-- Assignment Details -->
+            <div id="assignmentDetails" class="assignment-details-card">
+                <h3 id="assignmentTitle">Loading assignment details...</h3>
+                <div class="assignment-info">
+                    <div class="info-item">
+                        <i class="fas fa-book"></i>
+                        <span id="courseName">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span id="dueDate">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <span id="maxPoints">Loading...</span>
+                    </div>
+                </div>
+                <div class="assignment-description">
+                    <h4>Description:</h4>
+                    <p id="assignmentDescription">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Submission Form -->
+            <form id="submissionForm" enctype="multipart/form-data">
+                <input type="hidden" id="assignmentId" name="assignmentId">
+
+                <!-- Text Content (Optional) -->
+                <div class="form-group">
+                    <label for="content">
+                        <i class="fas fa-edit"></i> Additional Notes (Optional)
+                    </label>
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows="4"
+                        placeholder="Add any additional notes or comments about your submission..."
+                        maxlength="5000"
+                    ></textarea>
+                    <small class="char-count"><span id="charCount">0</span>/5000 characters</small>
+                </div>
+
+                <!-- File Upload (Required) -->
+                <div class="form-group">
+                    <label for="file">
+                        <i class="fas fa-paperclip"></i> Assignment File <span class="required">*</span>
+                    </label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="file-upload-content">
+                            <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                            <p class="file-upload-text">Click to upload or drag and drop</p>
+                            <p class="file-upload-subtext">PDF, PPT, DOC, XLS, TXT, images, videos, archives (Max: 50MB)</p>
+                        </div>
+                        <input
+                            type="file"
+                            id="file"
+                            name="file"
+                            accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov,.zip,.rar"
+                            required
+                        >
+                    </div>
+                    <div id="fileInfo" class="file-info hidden">
+                        <div class="file-info-content">
+                            <i class="fas fa-file" id="fileIcon"></i>
+                            <div class="file-details">
+                                <span id="fileName"></span>
+                                <span id="fileSize"></span>
+                            </div>
+                            <button type="button" id="removeFile" class="remove-file-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submission Summary -->
+                <div id="submissionSummary" class="submission-summary hidden">
+                    <h4><i class="fas fa-check-circle"></i> Ready to Submit</h4>
+                    <div class="summary-items">
+                        <div class="summary-item">
+                            <i class="fas fa-file"></i>
+                            <span id="summaryFile">No file selected</span>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-edit"></i>
+                            <span id="summaryNotes">No additional notes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary btn-full" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Assignment
+                </button>
+            </form>
+
+            <!-- Back to Dashboard -->
+            <div class="form-footer">
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header success">
+                <i class="fas fa-check-circle"></i>
+                <h2>Assignment Submitted!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Your assignment has been successfully submitted.</p>
+                <div class="submission-details">
+                    <p><strong>Submitted:</strong> <span id="submittedTime"></span></p>
+                    <p><strong>Status:</strong> Pending Review</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="backToDashboard" class="btn-primary">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="submit-assignment.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Submissions - StudyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learning Management System</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <div class="page-header">
+            <h1><i class="fas fa-file-upload"></i> Assignment Submissions</h1>
+            <p>View and grade student submissions</p>
+        </div>
+
+        <!-- Assignment Info -->
+        <div id="assignmentInfo" class="assignment-info-card">
+            <div class="assignment-header">
+                <h2 id="assignmentTitle">Loading...</h2>
+                <div class="assignment-meta">
+                    <span class="meta-item"><i class="fas fa-book"></i> <span id="courseName"></span></span>
+                    <span class="meta-item"><i class="fas fa-calendar"></i> Due: <span id="dueDate"></span></span>
+                    <span class="meta-item"><i class="fas fa-star"></i> Max Points: <span id="maxPoints"></span></span>
+                </div>
+            </div>
+            <div class="assignment-description" id="assignmentDescription"></div>
+        </div>
+
+        <!-- Submissions Container -->
+        <div class="submissions-container">
+            <div class="submissions-header">
+                <h3>Student Submissions</h3>
+                <div class="submissions-stats">
+                    <span class="stat-item">Total: <span id="totalSubmissions">0</span></span>
+                    <span class="stat-item">Graded: <span id="gradedSubmissions">0</span></span>
+                    <span class="stat-item">Pending: <span id="pendingSubmissions">0</span></span>
+                </div>
+            </div>
+
+            <div id="submissionsList" class="submissions-list">
+                <!-- Submissions will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Inline Grading Section (Hidden by default) -->
+    <div id="inlineGradingSection" class="inline-grading-section hidden">
+        <div class="grading-container">
+            <div class="grading-header">
+                <h3><i class="fas fa-star"></i> Grade Submission</h3>
+                <button id="cancelInlineGrading" class="btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+
+            <div id="gradingStudentInfo" class="grading-student-info">
+                <!-- Student info will be populated here -->
+            </div>
+
+            <div id="gradingSubmissionContent" class="grading-submission-content">
+                <!-- Submission content will be populated here -->
+            </div>
+
+            <form id="inlineGradingForm" class="inline-grading-form">
+                <input type="hidden" id="inlineSubmissionId" name="submissionId">
+
+                <div class="form-row">
+                    <div class="form-group grade-input">
+                        <label for="inlineGrade">
+                            <i class="fas fa-star"></i> Grade (1-10)
+                        </label>
+                        <input
+                            type="number"
+                            id="inlineGrade"
+                            name="grade"
+                            min="1"
+                            max="10"
+                            step="0.1"
+                            required
+                            placeholder="Enter grade 1-10"
+                        >
+                        <small class="grade-help">Rate the submission on a scale of 1 to 10</small>
+                    </div>
+
+                    <div class="form-group feedback-input">
+                        <label for="inlineFeedback">
+                            <i class="fas fa-comment"></i> Feedback (Optional)
+                        </label>
+                        <textarea
+                            id="inlineFeedback"
+                            name="feedback"
+                            rows="4"
+                            placeholder="Provide constructive feedback for the student..."
+                            maxlength="500"
+                        ></textarea>
+                        <small class="char-count"><span id="inlineFeedbackCharCount">0</span>/500 characters</small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Grade & Return to Dashboard
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p>Loading submissions...</p>
+    </div>
+
+    <script src="view-submissions.js"></script>
+</body>
+</html>
