@@ -6,21 +6,18 @@ require('dotenv').config();
 
 const app = express();
 
+// Connect to database for Vercel serverless functions
+connectDB().catch(err => {
+  console.error('Database connection failed:', err);
+  // Continue without database for demo purposes
+});
+
 // Middleware
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5000',
   'http://localhost:5173',
-  'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-flame.vercel.app',
-  'https://studyzone-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-parasuramgoud30-1909-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-g0b5c12ux-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-gr2fcabo8-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-juixbbe2a-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-pms0scv18-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-evf4ep0zu-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-m5cm2appk-parasuramgoud30-1909s-projects.vercel.app'
+  'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app'
 ];
 
 // Add environment variable origin if set
@@ -145,12 +142,24 @@ app.get('/profile.html', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/profile.html'));
 });
 
-// Serve static files from frontend directory (AFTER specific routes)
-app.use(express.static('../frontend'));
+app.get('/features.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/features.html'));
+});
 
-// Serve index.html for root route
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/../frontend/index.html');
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/about.html'));
+});
+
+app.get('/contact.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/contact.html'));
+});
+
+// Serve static files from frontend directory (AFTER specific routes)
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Serve index.html for root route and any unmatched routes (SPA fallback)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 // Health check route
@@ -160,7 +169,32 @@ app.get('/api/health', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Error:', err.message);
+  console.error('Stack:', err.stack);
+
+  // Handle specific error types
+  if (err.name === 'ValidationError') {
+    return res.status(400).json({
+      success: false,
+      message: 'Validation Error',
+      errors: Object.values(err.errors).map(e => e.message)
+    });
+  }
+
+  if (err.name === 'CastError') {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid ID format'
+    });
+  }
+
+  if (err.code === 11000) {
+    return res.status(400).json({
+      success: false,
+      message: 'Duplicate field value'
+    });
+  }
+
   res.status(500).json({
     success: false,
     message: 'Something went wrong!'
@@ -170,29 +204,21 @@ app.use((err, req, res, next) => {
 // 404 handler
 app.use((req, res) => {
   console.log(`404 - Route not found: ${req.method} ${req.path}`);
-  res.status(404).json({
-    success: false,
-    message: 'Route not found',
-    path: req.path,
-    method: req.method
-  });
+
+  // For API routes, return JSON
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({
+      success: false,
+      message: 'API endpoint not found',
+      path: req.path,
+      method: req.method
+    });
+  }
+
+  // For frontend routes, serve index.html (SPA fallback)
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
-
-const startServer = async () => {
-  // Connect to database (don't wait for it)
-  connectDB();
-
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`Available routes:`);
-    console.log(`  POST /api/assignments`);
-    console.log(`  GET /api/assignments/course/:courseId`);
-    console.log(`  GET /api/assignments/:id`);
-  });
-};
-
-startServer();
 
 module.exports = app;

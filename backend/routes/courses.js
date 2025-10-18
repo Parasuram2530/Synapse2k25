@@ -14,6 +14,7 @@ const router = express.Router();
 
 // Public routes
 router.get('/', getCourses);
+router.get('/:courseId', getCourses);
 
 // Protected routes
 router.post('/', protect, createCourse);

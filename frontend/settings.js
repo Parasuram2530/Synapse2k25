@@ -1,5 +1,7 @@
-// API base URL - change this to your backend URL
-const API_BASE_URL = 'http://localhost:5000/api';
+// API base URL - automatically switches between local and production
+const API_BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : `${window.location.origin}/api`;
 
 // DOM elements
 const themeButtons = document.querySelectorAll('.theme-btn');
@@ -298,7 +300,7 @@ exportDataBtn.addEventListener('click', async () => {
 clearCacheBtn.addEventListener('click', () => {
     if (confirm('Are you sure you want to clear all locally stored data? This action cannot be undone.')) {
         try {
-            // Clear StudyZone-related localStorage items
+            // Clear LMS-related localStorage items
             const keysToRemove = [];
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About StudyZone - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .about-section {
+            margin-bottom: 60px;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .mission-card, .vision-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e1e5e9;
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .mission-card .icon, .vision-card .icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .features-overview {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-item .icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            background: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 60px;
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .tech-category h4 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            color: #34495e;
+            border: 1px solid #e9ecef;
+        }
+
+        .getting-started {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .getting-started h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .getting-started p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            background: rgba(255,255,255,0.1);
+            padding: 30px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .step h5 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .contact-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .contact-section h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .contact-item .icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .contact-item h5 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .contact-item p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .owner-contact {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .owner-contact h4 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .owner-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .owner-item {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .owner-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .owner-item .fas {
+            font-size: 2rem;
+            color: #667eea;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .owner-details {
+            flex: 1;
+        }
+
+        .owner-name {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .owner-email {
+            display: block;
+            font-size: 1rem;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .owner-email:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About StudyZone</h1>
+            <p>Learn more about our mission to revolutionize online education</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <div class="about-content">
+        <!-- Mission & Vision -->
+        <section class="about-section">
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <div class="icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To democratize education by providing accessible, high-quality learning tools that empower students and educators worldwide. We believe that technology should enhance, not complicate, the learning experience.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To become the leading Learning Management System globally, fostering a community where knowledge flows freely and every individual has the opportunity to reach their full potential through education.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do -->
+        <section class="about-section">
+            <h2>What We Do</h2>
+            <p>StudyZone is a comprehensive Learning Management System designed to streamline online education. Our platform bridges the gap between traditional classroom learning and modern digital education, providing tools that make teaching and learning more effective and engaging.</p>
+            <p>We understand the challenges faced by both educators and students in the digital learning space. That's why we've built a platform that prioritizes user experience, security, and scalability.</p>
+        </section>
+
+        <!-- Features Overview -->
+        <section class="features-overview">
+            <h2>Why Choose StudyZone?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Secure & Reliable</h4>
+                    <p>Enterprise-grade security with encrypted data storage and secure authentication systems.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Fully Responsive</h4>
+                    <p>Access your courses and materials seamlessly across all devices - desktop, tablet, and mobile.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Community Driven</h4>
+                    <p>Built with input from educators and students to meet real-world educational needs.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4>Always Improving</h4>
+                    <p>Continuous updates and new features based on user feedback and technological advancements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-stack">
+            <h2>Technology Stack</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Frontend</h4>
+                    <div class="tech-list">
+                        <div class="tech-item">HTML5</div>
+                        <div class="tech-item">CSS3</div>
+                        <div class="tech-item">JavaScript (ES6+)</div>
+                        <div class="tech-item">Font Awesome</div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Backend</h4>
+                    <div class="tech-list">
+                        <div class="tech-item">Node.js</div>
+                        <div class="tech-item">Express.js</div>
+                        <div class="tech-item">MongoDB</div>
+                        <div class="tech-item">Mongoose</div>
+                        <div class="tech-item">JWT</div>
+                        <div class="tech-item">bcryptjs</div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Deployment</h4>
+                    <div class="tech-list">
+                        <div class="tech-item">Vercel</div>
+                        <div class="tech-item">GitHub</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section class="getting-started">
+            <h3>Getting Started is Easy</h3>
+            <p>Join thousands of students and educators who trust StudyZone for their educational needs</p>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h5>Create Account</h5>
+                    <p>Sign up as a student or teacher with your email address</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h5>Explore Courses</h5>
+                    <p>Browse available courses or create your own content</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h5>Start Learning</h5>
+                    <p>Begin your educational journey with interactive tools</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h5>Track Progress</h5>
+                    <p>Monitor your achievements and academic performance</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h3>Get In Touch</h3>
+            <p>Have questions or need support? We're here to help!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h5>Email Support</h5>
+                    <p>Contact us at support@studyzone.com for technical assistance and inquiries</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h5>Developer Resources</h5>
+                    <p>Access our documentation and API references for integration and development</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h5>Community</h5>
+                    <p>Join our community forum to connect with other educators and learners</p>
+                </div>
+            </div>
+
+            <!-- Owner Contact Information -->
+            <div class="owner-contact">
+                <h4>Project Owners</h4>
+                <div class="owner-info">
+                    <div class="owner-item">
+                        <i class="fas fa-user"></i>
+                        <div class="owner-details">
+                            <span class="owner-name">Parasuram Goud</span>
+                            <span class="owner-email">parasuramgoud30@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="owner-item">
+                        <i class="fas fa-user"></i>
+                        <div class="owner-details">
+                            <span class="owner-name">Deekshitha G</span>
+                            <span class="owner-email">deeksha96181@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

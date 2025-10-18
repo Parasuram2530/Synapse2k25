@@ -302,8 +302,8 @@ async function handleInlineGradingSubmission(e) {
         const grade = parseFloat(formData.get('grade'));
 
         // Validation
-        if (grade < 1 || grade > 10) {
-            showMessage('Grade must be between 1 and 10');
+        if (grade < 1 || grade > 100) {
+            showMessage('Grade must be between 1 and 100');
             return;
         }
 

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact StudyZone - Get In Touch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .contact-form-section, .contact-info-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-form-section h2, .contact-info-section h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-method {
+            text-align: center;
+            padding: 30px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-method .icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .contact-method h3 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .contact-method p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .contact-method .contact-detail {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .faq-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .faq-item h4 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .faq-item p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .owner-contact-section {
+            background: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .owner-contact-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .owner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .owner-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .owner-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .owner-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .owner-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .owner-role {
+            font-size: 1rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .owner-email {
+            font-size: 1rem;
+            color: #34495e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .owner-email:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-section, .contact-info-section {
+                padding: 30px 20px;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .owner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="#contact" class="nav-link active">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team. We're here to help you succeed!</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+        <!-- Contact Form and Info -->
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2>Send us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="account">Account Issues</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info-section">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you. Choose the most convenient way to reach us.</p>
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Support</h3>
+                        <p>Get help with technical issues, account problems, or general inquiries.</p>
+                        <div class="contact-detail">support@studyzone.com</div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Response Time</h3>
+                        <p>We typically respond to all inquiries within 24 hours during business days.</p>
+                        <div class="contact-detail">Mon-Fri, 9AM-6PM IST</div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Join our community forum to connect with other users and educators.</p>
+                        <div class="contact-detail">forum.studyzone.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>How do I create an account?</h4>
+                    <p>Click on the "Get Started" button on our homepage and fill out the registration form. You'll receive a confirmation email to activate your account.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is StudyZone free to use?</h4>
+                    <p>Yes! StudyZone offers a free tier with all essential features. We also offer premium plans with advanced features for institutions.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I reset my password?</h4>
+                    <p>Use the "Forgot Password" link on the login page. We'll send you a secure link to reset your password.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I access StudyZone on mobile devices?</h4>
+                    <p>Absolutely! StudyZone is fully responsive and works seamlessly on all devices including smartphones and tablets.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I upload course materials?</h4>
+                    <p>As a teacher, navigate to your course dashboard and use the "Upload Material" feature. We support various file formats including PDF, images, and videos.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is my data secure?</h4>
+                    <p>Yes, we use industry-standard encryption and security measures to protect your data. Your privacy and security are our top priorities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Owner Contact Section -->
+        <section class="owner-contact-section">
+            <h2>Meet the Team</h2>
+            <div class="owner-grid">
+                <div class="owner-card">
+                    <div class="owner-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="owner-name">Parasuram Goud</h3>
+                    <p class="owner-role">Project Lead & Developer</p>
+                    <a href="mailto:parasuramgoud30@gmail.com" class="owner-email">parasuramgoud30@gmail.com</a>
+                </div>
+                <div class="owner-card">
+                    <div class="owner-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="owner-name">Deekshitha G</h3>
+                    <p class="owner-role">Co-Developer & Designer</p>
+                    <a href="mailto:deeksha96181@gmail.com" class="owner-email">deeksha96181@gmail.com</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Show success message (in a real app, this would send to backend)
+            showMessage('Thank you for your message! We\'ll get back to you soon.', 'success');
+
+            // Reset form
+            this.reset();
+        });
+
+        function showMessage(message, type = 'success') {
+            // Remove existing messages
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            // Create new message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+
+            // Insert message at the top of the page
+            const pageContainer = document.querySelector('.contact-content');
+            pageContainer.insertBefore(messageDiv, pageContainer.firstChild);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

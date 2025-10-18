@@ -1,5 +1,7 @@
 // Teacher Dashboard JavaScript
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : `${window.location.origin}/api`;
 
 // DOM elements
 let teacherCourses, courseAssignmentsContainer, gradedAssignmentsContainer, courseGradesContainer;
@@ -79,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup tab navigation
     setupTabNavigation();
 
+    // Check if course was created
+    checkCourseCreation();
+
     // Load initial data
     loadTeacherCourses();
     updateDashboardStats();
@@ -89,6 +94,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProfilePictureDisplay(user);
     }
 });
+
+// Check if course was created from create-course page
+function checkCourseCreation() {
+    const courseCreated = localStorage.getItem('courseCreated');
+    if (courseCreated === 'true') {
+        localStorage.removeItem('courseCreated');
+        // Data will be reloaded by the load functions
+    }
+}
 
 // Setup DOM elements
 function setupDOMElements() {
@@ -600,6 +614,12 @@ async function loadTeacherCourses() {
         console.error('Error loading teacher courses:', error);
         teacherCourses.innerHTML = '<p>Failed to load your courses</p>';
     }
+}
+
+// Refresh teacher courses after creation
+function refreshTeacherCourses() {
+    loadTeacherCourses();
+    updateDashboardStats();
 }
 
 // Load teacher assignments

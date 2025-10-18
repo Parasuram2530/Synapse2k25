@@ -53,53 +53,183 @@ const createCourse = async (req, res) => {
   }
 };
 
-// @desc    Get all courses
+// @desc    Get all courses or single course
 // @route   GET /api/courses
+// @route   GET /api/courses/:courseId
 // @access  Public
 const getCourses = async (req, res) => {
-  // Immediately return demo courses - skip database operations entirely
-  const demoCourses = [
-    {
-      _id: '507f1f77bcf86cd799439012',
-      title: 'Introduction to Computer Science',
-      description: 'Learn the fundamentals of programming, algorithms, and computer systems.',
-      duration: '12 weeks',
-      teacher: {
-        _id: '507f1f77bcf86cd799439013',
-        name: 'Dr. Demo Teacher',
-        email: 'teacher@demo.edu'
-      },
-      enrolledStudents: [
-        {
-          _id: '507f1f77bcf86cd799439011',
-          name: 'Demo User',
-          email: 'demo@example.com'
-        }
-      ],
-      createdAt: new Date()
-    },
-    {
-      _id: '507f1f77bcf86cd799439014',
-      title: 'Web Development Fundamentals',
-      description: 'Master the basics of HTML, CSS, and JavaScript.',
-      duration: '10 weeks',
-      teacher: {
-        _id: '507f1f77bcf86cd799439013',
-        name: 'Dr. Demo Teacher',
-        email: 'teacher@demo.edu'
-      },
-      enrolledStudents: [],
-      createdAt: new Date()
-    }
-  ];
+  try {
+    const { courseId } = req.params;
 
-  return res.json({
-    success: true,
-    data: {
-      courses: demoCourses,
-      count: demoCourses.length
+    // If courseId is provided, return single course
+    if (courseId) {
+      // Check if database is connected
+      const mongoose = require('mongoose');
+      if (!mongoose.connection.readyState || mongoose.connection.readyState !== 1) {
+        // Return demo course when database is not connected
+        const demoCourse = {
+          _id: courseId,
+          title: 'Introduction to Computer Science',
+          description: 'Learn the fundamentals of programming, algorithms, and computer systems. This comprehensive course covers fundamental concepts including variables, data types, control structures, functions, and basic algorithms. Students will gain hands-on experience through practical coding exercises and projects.',
+          duration: '12 weeks',
+          category: 'Computer Science',
+          level: 'Beginner to Intermediate',
+          language: 'English',
+          teacher: {
+            _id: '507f1f77bcf86cd799439013',
+            name: 'Dr. Demo Teacher',
+            email: 'teacher@demo.edu'
+          },
+          enrolledStudents: [
+            {
+              _id: '507f1f77bcf86cd799439011',
+              name: 'Demo User',
+              email: 'demo@example.com'
+            }
+          ],
+          prerequisites: 'Basic computer literacy and high school mathematics',
+          skills: [
+            'Programming fundamentals',
+            'Algorithm design',
+            'Problem-solving skills',
+            'Code debugging',
+            'Software development principles'
+          ],
+          timeline: [
+            { week: 1, title: 'Introduction to Programming', description: 'Basic concepts, setting up development environment' },
+            { week: 2, title: 'Variables and Data Types', description: 'Understanding different data types and variable declaration' },
+            { week: 3, title: 'Control Structures', description: 'Conditional statements and loops' },
+            { week: 4, title: 'Functions and Modules', description: 'Creating reusable code blocks' },
+            { week: 5, title: 'Arrays and Collections', description: 'Working with data collections' },
+            { week: 6, title: 'Object-Oriented Programming', description: 'Classes, objects, and inheritance' },
+            { week: 7, title: 'File I/O Operations', description: 'Reading and writing files' },
+            { week: 8, title: 'Error Handling', description: 'Exception handling and debugging' },
+            { week: 9, title: 'Data Structures', description: 'Arrays, lists, stacks, and queues' },
+            { week: 10, title: 'Algorithms', description: 'Basic sorting and searching algorithms' },
+            { week: 11, title: 'Final Project', description: 'Building a complete application' },
+            { week: 12, title: 'Review and Assessment', description: 'Course review and final evaluation' }
+          ],
+          objectives: [
+            'Understand fundamental programming concepts',
+            'Write clean, efficient, and maintainable code',
+            'Apply problem-solving techniques to programming challenges',
+            'Develop algorithms for common computational problems',
+            'Work effectively with integrated development environments',
+            'Debug and troubleshoot programming errors'
+          ],
+          requirements: [
+            'Computer with internet access',
+            'Basic typing skills',
+            'Commitment to weekly assignments',
+            'Willingness to learn and experiment'
+          ],
+          materials: [
+            'Video lectures and coding demonstrations',
+            'Interactive coding exercises',
+            'Weekly assignments and projects',
+            'Discussion forums for peer support',
+            'Comprehensive course textbook',
+            'Online coding environment access'
+          ],
+          createdAt: new Date()
+        };
+
+        return res.json({
+          success: true,
+          data: {
+            course: demoCourse
+          }
+        });
+      }
+
+      // Database connected - fetch real course
+      const course = await Course.findById(courseId)
+        .populate('teacher', 'name email')
+        .populate('enrolledStudents', 'name email');
+
+      if (!course) {
+        return res.status(404).json({
+          success: false,
+          message: 'Course not found'
+        });
+      }
+
+      return res.json({
+        success: true,
+        data: {
+          course
+        }
+      });
     }
-  });
+
+    // Check if database is connected
+    const mongoose = require('mongoose');
+    if (!mongoose.connection.readyState || mongoose.connection.readyState !== 1) {
+      // Return demo courses when database is not connected
+      const demoCourses = [
+        {
+          _id: '507f1f77bcf86cd799439012',
+          title: 'Introduction to Computer Science',
+          description: 'Learn the fundamentals of programming, algorithms, and computer systems.',
+          duration: '12 weeks',
+          teacher: {
+            _id: '507f1f77bcf86cd799439013',
+            name: 'Dr. Demo Teacher',
+            email: 'teacher@demo.edu'
+          },
+          enrolledStudents: [
+            {
+              _id: '507f1f77bcf86cd799439011',
+              name: 'Demo User',
+              email: 'demo@example.com'
+            }
+          ],
+          createdAt: new Date()
+        },
+        {
+          _id: '507f1f77bcf86cd799439014',
+          title: 'Web Development Fundamentals',
+          description: 'Master the basics of HTML, CSS, and JavaScript.',
+          duration: '10 weeks',
+          teacher: {
+            _id: '507f1f77bcf86cd799439013',
+            name: 'Dr. Demo Teacher',
+            email: 'teacher@demo.edu'
+          },
+          enrolledStudents: [],
+          createdAt: new Date()
+        }
+      ];
+
+      return res.json({
+        success: true,
+        data: {
+          courses: demoCourses,
+          count: demoCourses.length
+        }
+      });
+    }
+
+    // Database connected - fetch all courses
+    const courses = await Course.find({})
+      .populate('teacher', 'name email')
+      .populate('enrolledStudents', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      data: {
+        courses,
+        count: courses.length
+      }
+    });
+  } catch (error) {
+    console.error('Get courses error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while fetching courses'
+    });
+  }
 };
 
 // @desc    Get courses by teacher

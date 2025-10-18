@@ -1,5 +1,7 @@
 // Student Dashboard JavaScript
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : `${window.location.origin}/api`;
 
 // DOM elements
 let coursesContainer, enrolledCoursesContainer, assignmentsContainer, submissionsContainer, myGradesContainer;
@@ -78,6 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup tab navigation
     setupTabNavigation();
 
+    // Check if enrollment was updated
+    checkEnrollmentUpdate();
+
     // Load initial data
     loadAvailableCourses();
     updateDashboardStats();
@@ -88,6 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProfilePictureDisplay(user);
     }
 });
+
+// Check if enrollment was updated from course details page
+function checkEnrollmentUpdate() {
+    const enrollmentUpdated = localStorage.getItem('enrollmentUpdated');
+    if (enrollmentUpdated === 'true') {
+        localStorage.removeItem('enrollmentUpdated');
+        // Data will be reloaded by the load functions
+    }
+}
 
 // Setup DOM elements
 function setupDOMElements() {
@@ -631,6 +645,7 @@ async function loadAvailableCourses() {
         const result = await apiCallWithAuth('/courses');
         if (result.success) {
             allCourses = result.data.courses;
+            console.log('Loaded courses:', allCourses); // Debug log
             displayCourses(allCourses, coursesContainer, true);
         } else {
             console.error('Error loading courses:', result.message);
@@ -948,6 +963,10 @@ function displayCourses(courses, container, showEnrollButton = false, showEnroll
 
             ${showEnrollButton ? `
                 <div class="course-enroll-line">
+                    <button class="btn-secondary view-course-btn" data-course-id="${course._id}">
+                        <span class="view-emoji">👁️</span>
+                        <span class="view-text">View Course</span>
+                    </button>
                     <button class="btn-primary enroll-btn" data-course-id="${course._id}">
                         <span class="enroll-emoji">🎓</span>
                         <span class="enroll-text">Enroll</span>
@@ -969,6 +988,13 @@ function displayCourses(courses, container, showEnrollButton = false, showEnroll
     `).join('');
 
     if (showEnrollButton) {
+        container.querySelectorAll('.view-course-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const courseId = e.target.closest('.view-course-btn').dataset.courseId;
+                viewCourseDetails(courseId);
+            });
+        });
+
         container.querySelectorAll('.enroll-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const courseId = e.target.closest('.enroll-btn').dataset.courseId;
@@ -1185,20 +1211,57 @@ function displayDiscussions(discussions, container, showReplyButton = false) {
 }
 
 // Additional functions (enroll in course, download material, etc.)
+async function viewCourseDetails(courseId) {
+    try {
+        const result = await apiCallWithAuth(`/courses/${courseId}`);
+        if (result.success) {
+            const course = result.data.course;
+            // Store course details in localStorage for the course details page
+            localStorage.setItem('selectedCourse', JSON.stringify(course));
+            // Navigate to course details page
+            window.location.href = 'course-details.html';
+        } else {
+            showMessage(result.message || 'Failed to load course details');
+        }
+    } catch (error) {
+        showMessage(error.message || 'Failed to load course details');
+    }
+}
+
 async function enrollInCourse(courseId) {
     try {
         const result = await apiCallWithAuth(`/courses/${courseId}/enroll`, {}, 'POST');
 
         if (result.success) {
             showMessage('Successfully enrolled in course!', 'success');
-            loadAvailableCourses();
+
+            // Update the enrolled courses list immediately
             loadEnrolledCourses();
+
+            // Update available courses to remove the enrolled course
+            loadAvailableCourses();
+
+            // Update dashboard stats
             updateDashboardStats();
+
+            // Update teacher dashboard if teacher is logged in
+            updateTeacherDashboardIfNeeded();
         } else {
             showMessage(result.message || 'Failed to enroll');
         }
     } catch (error) {
         showMessage(error.message || 'Failed to enroll');
+    }
+}
+
+// Update teacher dashboard if teacher is logged in
+function updateTeacherDashboardIfNeeded() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user.role === 'Teacher') {
+        // If we're on teacher dashboard, reload the courses
+        if (window.location.pathname.includes('teacher-dashboard.html')) {
+            loadTeacherCourses();
+        }
     }
 }
 

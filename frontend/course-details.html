@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - StudyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Course Details Section -->
+    <section class="course-details-section">
+        <div class="container">
+            <div class="course-details-header">
+                <button class="btn-secondary back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <div id="courseHeader" class="course-header-content">
+                    <!-- Course header will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="course-details-content">
+                <div class="course-main-info">
+                    <div class="course-description-card">
+                        <h3><i class="fas fa-info-circle"></i> Course Description</h3>
+                        <div id="courseDescription" class="course-description-content">
+                            <!-- Course description will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="course-info-grid">
+                        <div class="info-card">
+                            <h4><i class="fas fa-clock"></i> Duration</h4>
+                            <p id="courseDuration">Loading...</p>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fas fa-user-tie"></i> Instructor</h4>
+                            <p id="courseTeacher">Loading...</p>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fas fa-users"></i> Enrolled Students</h4>
+                            <p id="enrolledCount">Loading...</p>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fas fa-calendar-alt"></i> Created</h4>
+                            <p id="courseCreated">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-additional-info">
+                    <div class="course-timeline-card">
+                        <h3><i class="fas fa-road"></i> Course Timeline</h3>
+                        <div id="courseTimeline" class="timeline-content">
+                            <!-- Timeline will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="course-objectives-card">
+                        <h3><i class="fas fa-bullseye"></i> Learning Objectives</h3>
+                        <div id="courseObjectives" class="objectives-content">
+                            <!-- Objectives will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="course-requirements-card">
+                        <h3><i class="fas fa-check-circle"></i> Requirements</h3>
+                        <div id="courseRequirements" class="requirements-content">
+                            <!-- Requirements will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="course-materials-card">
+                        <h3><i class="fas fa-book"></i> Course Materials</h3>
+                        <div id="courseMaterials" class="materials-content">
+                            <!-- Materials will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-actions">
+                <button class="btn-primary enroll-btn" id="enrollBtn">
+                    <i class="fas fa-graduation-cap"></i> Enroll in Course
+                </button>
+                <button class="btn-secondary share-btn" id="shareBtn">
+                    <i class="fas fa-share"></i> Share Course
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Navigation -->
+    <footer class="dashboard-footer">
+        <div class="footer-nav">
+            <a href="index.html" class="footer-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="features.html" class="footer-link">
+                <i class="fas fa-star"></i>
+                <span>Features</span>
+            </a>
+            <a href="about.html" class="footer-link">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="contact.html" class="footer-link">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="course-details.js"></script>
+</body>
+</html>

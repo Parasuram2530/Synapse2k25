@@ -145,9 +145,12 @@ const handleCourseCreation = async (e) => {
         if (result.success) {
             showMessage('Course created successfully!', 'success');
 
-            // Redirect to dashboard after a short delay
+            // Store course creation flag for dashboard refresh
+            localStorage.setItem('courseCreated', 'true');
+
+            // Redirect to teacher dashboard after a short delay
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'teacher-dashboard.html';
             }, 2000);
         } else {
             showMessage(result.message || 'Failed to create course');

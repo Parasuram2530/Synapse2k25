@@ -1,5 +1,7 @@
-// API base URL - change this to your backend URL
-const API_BASE_URL = 'https://studyzone-evf4ep0zu-parasuramgoud30-1909s-projects.vercel.app/api';
+// API base URL - automatically switches between local and production
+const API_BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : `${window.location.origin}/api`;
 
 // Course-related DOM elements - will be set up after DOM loads
 let teacherDashboard, studentDashboard, createCourseBtn, courseModal, courseForm, closeModal, coursesContainer, enrolledCoursesContainer, teacherCourses;

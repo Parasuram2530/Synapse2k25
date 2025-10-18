@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyZone Features - Learning Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .features-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .features-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .features-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e1e5e9;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .feature-features li {
+            padding: 8px 0;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        .feature-features li:before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cta-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+
+        .stats-section {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .features-hero h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+
+            .feature-card {
+                padding: 30px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyZone</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link active">Features</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="features-hero">
+        <div class="container">
+            <h1>Powerful Features for Modern Education</h1>
+            <p>Discover the comprehensive tools and features that make StudyZone the perfect learning management system</p>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-grid">
+        <!-- Course Management -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <h3>Course Management</h3>
+            <p>Create, organize, and manage courses with ease. Our intuitive interface allows teachers to build comprehensive learning experiences.</p>
+            <ul class="feature-features">
+                <li>Easy course creation and editing</li>
+                <li>Flexible course structure</li>
+                <li>Student enrollment management</li>
+                <li>Course progress tracking</li>
+                <li>Multi-teacher support</li>
+            </ul>
+        </div>
+
+        <!-- Assignment System -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <h3>Advanced Assignment System</h3>
+            <p>Streamline assignment creation, submission, and grading with our comprehensive assignment management tools.</p>
+            <ul class="feature-features">
+                <li>Rich text assignment creation</li>
+                <li>Due date management</li>
+                <li>File upload support</li>
+                <li>Automated grading workflows</li>
+                <li>Feedback and comments</li>
+            </ul>
+        </div>
+
+        <!-- Interactive Discussions -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h3>Interactive Discussions</h3>
+            <p>Foster student engagement with threaded discussions, announcements, and collaborative learning spaces.</p>
+            <ul class="feature-features">
+                <li>Threaded discussion forums</li>
+                <li>Teacher announcements</li>
+                <li>Real-time notifications</li>
+                <li>Tagging and categorization</li>
+                <li>Discussion analytics</li>
+            </ul>
+        </div>
+
+        <!-- Material Management -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-folder"></i>
+            </div>
+            <h3>Content Management</h3>
+            <p>Upload, organize, and distribute course materials with our powerful file management system.</p>
+            <ul class="feature-features">
+                <li>Multi-format file support</li>
+                <li>Organized file structure</li>
+                <li>Download tracking</li>
+                <li>Version control</li>
+                <li>Access permissions</li>
+            </ul>
+        </div>
+
+        <!-- Grade Management -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Comprehensive Grading</h3>
+            <p>Track student performance with detailed gradebooks, analytics, and progress reporting.</p>
+            <ul class="feature-features">
+                <li>Detailed grade tracking</li>
+                <li>Performance analytics</li>
+                <li>Grade calculation automation</li>
+                <li>Progress reports</li>
+                <li>Parent notifications</li>
+            </ul>
+        </div>
+
+        <!-- User Management -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>User Management</h3>
+            <p>Manage students, teachers, and administrators with role-based access control and user profiles.</p>
+            <ul class="feature-features">
+                <li>Role-based permissions</li>
+                <li>User profile management</li>
+                <li>Bulk user operations</li>
+                <li>Authentication & security</li>
+                <li>User activity tracking</li>
+            </ul>
+        </div>
+
+        <!-- Mobile Responsive -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Mobile Responsive</h3>
+            <p>Access your courses and materials anywhere with our fully responsive design optimized for all devices.</p>
+            <ul class="feature-features">
+                <li>Mobile-optimized interface</li>
+                <li>Touch-friendly controls</li>
+                <li>Offline content access</li>
+                <li>Push notifications</li>
+                <li>Cross-device sync</li>
+            </ul>
+        </div>
+
+        <!-- Analytics & Reporting -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3>Analytics & Reporting</h3>
+            <p>Gain insights into student performance and course effectiveness with comprehensive analytics.</p>
+            <ul class="feature-features">
+                <li>Student engagement metrics</li>
+                <li>Course completion rates</li>
+                <li>Performance trends</li>
+                <li>Custom report generation</li>
+                <li>Data export capabilities</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>Trusted by Educational Institutions Worldwide</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">10,000+</span>
+                    <span class="stat-label">Active Students</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Courses Created</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">Expert Teachers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your Learning Experience?</h2>
+            <p>Join thousands of students and educators who trust StudyZone for their educational needs.</p>
+            <a href="index.html" class="btn-cta">Get Started Today</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
