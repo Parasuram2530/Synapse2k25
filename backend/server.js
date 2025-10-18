@@ -158,7 +158,7 @@ app.get('/contact.html', (req, res) => {
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Serve index.html for root route and any unmatched routes (SPA fallback)
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
