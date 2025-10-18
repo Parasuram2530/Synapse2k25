@@ -435,11 +435,12 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     border: 1px solid rgba(0, 0, 0, 0.08);
     min-width: 140px;
-    z-index: 10001;
+    z-index: 999999;
     opacity: 0;
     transform: translateY(-8px);
     transition: all 0.25s ease;
     pointer-events: none;
+    margin-top: 8px;
 }
 
 .user-dropdown:not(.hidden) {
@@ -3645,15 +3646,15 @@ input:checked + .toggle-slider:before {
 
 /* Enhanced User Dropdown */
 .user-dropdown {
-    position: fixed;
-    top: auto;
-    right: 20px;
+    position: absolute;
+    top: 100%;
+    right: 0;
     background: white;
     min-width: 280px;
     border-radius: 12px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     border: 1px solid #e1e8ed;
-    z-index: 10001;
+    z-index: 999999;
     margin-top: 8px;
     overflow: hidden;
     opacity: 0;
