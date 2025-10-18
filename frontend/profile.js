@@ -13,6 +13,14 @@ const cancelBtn = document.getElementById('cancelBtn');
 const bioTextarea = document.getElementById('bio');
 const bioCharCount = document.getElementById('bioCharCount');
 
+// Change password elements
+const changePasswordBtn = document.getElementById('changePasswordBtn');
+const currentPasswordField = document.getElementById('currentPassword');
+const newPasswordField = document.getElementById('newPassword');
+const confirmPasswordField = document.getElementById('confirmPassword');
+const strengthBar = document.getElementById('strengthBar');
+const strengthText = document.getElementById('strengthText');
+
 // Form fields
 const nameField = document.getElementById('name');
 const emailField = document.getElementById('email');
@@ -170,6 +178,113 @@ function removeProfilePicture() {
     removePictureBtn.style.display = 'none';
 }
 
+// Password strength checker
+function checkPasswordStrength(password) {
+    let strength = 0;
+    let feedback = [];
+
+    if (password.length >= 8) strength++;
+    else feedback.push('At least 8 characters');
+
+    if (/[a-z]/.test(password)) strength++;
+    else feedback.push('Lowercase letter');
+
+    if (/[A-Z]/.test(password)) strength++;
+    else feedback.push('Uppercase letter');
+
+    if (/[0-9]/.test(password)) strength++;
+    else feedback.push('Number');
+
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    else feedback.push('Special character');
+
+    return { strength, feedback };
+}
+
+// Update password strength indicator
+function updatePasswordStrength() {
+    const password = newPasswordField.value;
+    const { strength } = checkPasswordStrength(password);
+
+    // Reset classes
+    strengthBar.className = 'strength-bar';
+
+    if (password.length === 0) {
+        strengthBar.style.width = '0%';
+        strengthText.textContent = 'Password strength';
+        return;
+    }
+
+    let width = (strength / 5) * 100;
+    strengthBar.style.width = width + '%';
+
+    if (strength <= 2) {
+        strengthBar.classList.add('weak');
+        strengthText.textContent = 'Weak';
+    } else if (strength <= 3) {
+        strengthBar.classList.add('medium');
+        strengthText.textContent = 'Medium';
+    } else {
+        strengthBar.classList.add('strong');
+        strengthText.textContent = 'Strong';
+    }
+}
+
+// Handle change password
+async function handleChangePassword() {
+    const currentPassword = currentPasswordField.value.trim();
+    const newPassword = newPasswordField.value.trim();
+    const confirmPassword = confirmPasswordField.value.trim();
+
+    // Validation
+    if (!currentPassword) {
+        showMessage('Please enter your current password', 'error');
+        return;
+    }
+
+    if (!newPassword) {
+        showMessage('Please enter a new password', 'error');
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        showMessage('New password must be at least 6 characters long', 'error');
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        showMessage('New passwords do not match', 'error');
+        return;
+    }
+
+    const btn = changePasswordBtn;
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Changing...';
+
+    try {
+        await apiCallWithAuth('/auth/change-password', {
+            currentPassword,
+            newPassword
+        }, 'PUT');
+
+        showMessage('Password changed successfully!', 'success');
+
+        // Clear form
+        currentPasswordField.value = '';
+        newPasswordField.value = '';
+        confirmPasswordField.value = '';
+        updatePasswordStrength();
+
+    } catch (error) {
+        console.error('Error changing password:', error);
+        showMessage(error.message || 'Failed to change password', 'error');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
 // Handle form submission
 async function handleProfileUpdate(e) {
     e.preventDefault();
@@ -278,6 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bio character count
     bioField.addEventListener('input', updateBioCharCount);
+
+    // Password strength
+    newPasswordField.addEventListener('input', updatePasswordStrength);
+
+    // Change password button
+    changePasswordBtn.addEventListener('click', handleChangePassword);
 
     // Cancel button
     cancelBtn.addEventListener('click', () => {
