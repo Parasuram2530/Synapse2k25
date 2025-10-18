@@ -10,6 +10,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5000',
+  'http://localhost:5173',
   'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app',
   'https://studyzone-flame.vercel.app',
   'https://studyzone-parasuramgoud30-1909s-projects.vercel.app',
@@ -17,7 +18,9 @@ const allowedOrigins = [
   'https://studyzone-g0b5c12ux-parasuramgoud30-1909s-projects.vercel.app',
   'https://studyzone-gr2fcabo8-parasuramgoud30-1909s-projects.vercel.app',
   'https://studyzone-juixbbe2a-parasuramgoud30-1909s-projects.vercel.app',
-  'https://studyzone-pms0scv18-parasuramgoud30-1909s-projects.vercel.app'
+  'https://studyzone-pms0scv18-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-evf4ep0zu-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-m5cm2appk-parasuramgoud30-1909s-projects.vercel.app'
 ];
 
 // Add environment variable origin if set
@@ -34,13 +37,27 @@ app.use(cors({
       callback(null, true);
     } else {
       console.log('CORS blocked origin:', origin);
+      console.log('Allowed origins:', allowedOrigins);
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers'
+  ],
+  exposedHeaders: ['Access-Control-Allow-Origin'],
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 }));
+
+// Handle preflight requests explicitly
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
