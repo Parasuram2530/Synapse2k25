@@ -7,7 +7,22 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app',
+    'https://studyzone-flame.vercel.app',
+    'https://studyzone-parasuramgoud30-1909s-projects.vercel.app',
+    'https://studyzone-parasuramgoud30-1909-parasuramgoud30-1909s-projects.vercel.app',
+    'https://studyzone-g0b5c12ux-parasuramgoud30-1909s-projects.vercel.app',
+    'https://studyzone-gr2fcabo8-parasuramgoud30-1909s-projects.vercel.app',
+    'https://studyzone-juixbbe2a-parasuramgoud30-1909s-projects.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
