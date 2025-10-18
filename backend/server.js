@@ -7,21 +7,39 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-flame.vercel.app',
+  'https://studyzone-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-parasuramgoud30-1909-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-g0b5c12ux-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-gr2fcabo8-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-juixbbe2a-parasuramgoud30-1909s-projects.vercel.app',
+  'https://studyzone-pms0scv18-parasuramgoud30-1909s-projects.vercel.app'
+];
+
+// Add environment variable origin if set
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5000',
-    'https://studyzone-qaio30kzc-parasuramgoud30-1909s-projects.vercel.app',
-    'https://studyzone-flame.vercel.app',
-    'https://studyzone-parasuramgoud30-1909s-projects.vercel.app',
-    'https://studyzone-parasuramgoud30-1909-parasuramgoud30-1909s-projects.vercel.app',
-    'https://studyzone-g0b5c12ux-parasuramgoud30-1909s-projects.vercel.app',
-    'https://studyzone-gr2fcabo8-parasuramgoud30-1909s-projects.vercel.app',
-    'https://studyzone-juixbbe2a-parasuramgoud30-1909s-projects.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
